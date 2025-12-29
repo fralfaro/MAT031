@@ -1,0 +1,190 @@
+#  Prueba de Hipótesis
+
+## Introducción a la Prueba de Hipótesis
+
+Un aspecto fundamental dentro de la inferencia estadística es el que denominamos **Prueba de Hipótesis**, también llamado **Contraste de Hipótesis** o **Dócima de Hipótesis**.
+
+En la actualidad, los sociólogos han llegado a denominar a esta época como la sociedad del *riesgo*. Constantemente debemos decidir entre posibilidades excluyentes y, por lo tanto, asumir el riesgo asociado a nuestras decisiones. Por ejemplo, al comprar un activo financiero, debemos decidir cuál adquirir dentro de un conjunto de posibilidades y, posteriormente, elegir el método de depreciación a utilizar. Estas decisiones implican consecuencias futuras que pueden derivar en ascensos o despidos.
+
+Este riesgo, en la mayoría de los casos, es completamente subjetivo e imposible de cuantificar con exactitud, en particular en decisiones íntimas o existenciales. ¿Cómo medir dicho riesgo? No existe una respuesta única y concluyente.
+
+Por lo general, la decisión a tomar se da entre un conjunto de resultados —también llamados *estados de la naturaleza*— desconocidos para el decisor. Aunque existen técnicas para abordar estos problemas, las **Pruebas de Hipótesis** que estudiaremos estarán limitadas a solo dos estados de la naturaleza posibles, mutuamente excluyentes: ocurre el estado **A** o no ocurre (en cuyo caso ocurre el estado **B**).
+
+La toma de decisiones es una realidad frecuente en las organizaciones, donde a menudo se requiere decidir casi en tiempo real. Esta exigencia dificulta un análisis exhaustivo; sin embargo, con un esfuerzo adicional razonable, dichas decisiones pueden estar respaldadas por procedimientos estadísticos de alto nivel.
+
+El desarrollo y análisis de una prueba de hipótesis sigue un procedimiento similar al utilizado en los **Intervalos de Confianza**. La diferencia principal radica en que, en intervalos de confianza, se desconoce el valor del parámetro poblacional de interés y se desea estimarlo a partir de una muestra aleatoria. En cambio, en la prueba de hipótesis existe una **conjetura** previa sobre dicho parámetro, la cual se contrasta con la evidencia muestral.
+
+En una prueba de hipótesis se decide **aceptar o rechazar** un determinado estado de la naturaleza. Tradicionalmente, la conjetura principal se denomina **Hipótesis Nula**, simbolizada por $H_0$, mientras que la alternativa se denomina **Hipótesis Alternativa**, simbolizada por $H_1$.
+
+Al tomar una decisión entre dos estados mutuamente excluyentes, existe la posibilidad de cometer errores. Estos errores se clasifican de la siguiente forma (ver **Figura 1**):
+
+**Sugerencia de imagen:** diagrama de matriz de decisión mostrando decisiones correctas y errores Tipo I y Tipo II.
+
+### Tipos de errores en pruebas de hipótesis
+
+| Estado real / Decisión | No se rechaza $H_0$ | Se rechaza $H_0$ |
+|-----------------------|--------------------|-----------------|
+| $H_0$ verdadera       | Decisión correcta  | Error Tipo I    |
+| $H_0$ falsa           | Error Tipo II      | Decisión correcta |
+
+**Figura 1:** Tipos de errores en decisiones excluyentes.
+
+- **Error Tipo I ($\alpha$):** rechazar la hipótesis nula cuando en realidad es verdadera.
+- **Error Tipo II ($\beta$):** no rechazar la hipótesis nula cuando en realidad es falsa.
+
+El error Tipo I, $\alpha$, coincide con el nivel de significancia utilizado en intervalos de confianza y es el error que el experimentador controla. En muchos contextos, se considera menos dañino que el error Tipo II, aunque esta apreciación depende del problema.
+
+Por ejemplo, en un juicio, la hipótesis nula es que una persona es inocente. El error Tipo I implica condenar a un inocente, mientras que el error Tipo II implica absolver a un culpable. En este contexto, suele considerarse preferible cometer un error Tipo II.
+
+No rechazar una hipótesis implica únicamente que los datos no proporcionan evidencia suficiente para refutarla; no implica que sea verdadera. Rechazar una hipótesis indica que la evidencia muestral es suficiente para descartarla, aunque no prueba con certeza absoluta que sea falsa.
+
+Desde el punto de vista probabilístico:
+- $\alpha = \mathbb{P}(\text{Rechazar } H_0 \mid H_0 \text{ verdadera})$
+- $\beta = \mathbb{P}(\text{No rechazar } H_0 \mid H_0 \text{ falsa})$
+
+El error Tipo II no puede cuantificarse sin especificar un valor concreto bajo la hipótesis alternativa. Para abordar este problema se introduce la **función de potencia**.
+
+### Función de Potencia
+
+La **función de potencia** de una prueba es la probabilidad de rechazar la hipótesis nula cuando la hipótesis alternativa es verdadera:
+
+$$
+\pi(\theta) = \mathbb{P}(\text{Rechazar } H_0 \mid H_1 \text{ verdadera}) = 1 - \beta
+$$
+
+Para un valor específico del parámetro alternativo, se habla simplemente de la **potencia** de la prueba.
+
+La forma de la función de potencia depende de cómo se formule la hipótesis alternativa (unilateral o bilateral).
+
+En general, se asume que la muestra proviene de una distribución Normal o que el tamaño muestral es suficientemente grande ($n > 30$) para aplicar el Teorema del Límite Central.
+
+### Tipos de hipótesis sobre la media
+
+Hipótesis simples:
+$$
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu = \mu_1 \quad (\mu_0 < \mu_1)
+$$
+
+Hipótesis compuestas (unilaterales):
+$$
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu > \mu_0
+$$
+
+$$
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu < \mu_0
+$$
+
+Hipótesis bilaterales:
+$$
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0
+$$
+
+En los casos compuestos, la función de potencia permite evaluar el desempeño de la prueba para distintos valores del parámetro alternativo.
+
+---
+
+## Ejemplo 1: Proporción de mercado
+
+Se cree que una compañía cubre el 40% de la demanda de un producto. Se toma una muestra aleatoria de 18 consumidores y se define como región crítica:
+$$
+W = \{X \leq 3 \ \text{o} \ X \geq 12\}
+$$
+donde $X$ es el número de consumidores que compran a la compañía.
+
+$$
+X \sim \text{Binomial}(18, p)
+$$
+$$
+H_0: p = 0.4 \quad \text{vs} \quad H_1: p \neq 0.4
+$$
+
+### Error Tipo I
+$$
+\alpha = \mathbb{P}(X \leq 3 \ \text{o} \ X \geq 12 \mid p = 0.4)
+$$
+
+### Función de potencia
+$$
+\pi(p) = \mathbb{P}(X \leq 3 \ \text{o} \ X \geq 12 \mid p)
+$$
+
+**Tabla 1: Valores para la función de potencia**
+
+| $p$ | $\pi(p)$ |
+|----|---------|
+| 0.9 | — |
+| 0.8 | — |
+| 0.6 | — |
+| 0.4 | — |
+| 0.1 | — |
+
+**Sugerencia de imagen:** gráfico de la función de potencia $\pi(p)$ en función de $p$.
+
+---
+
+## Aplicación 8.1: Rendimiento de neumáticos
+
+**Variables**
+- $X$: duración (MKM) neumáticos Tipo A
+- $Y$: duración (MKM) neumáticos Tipo B
+
+**Supuestos**
+$$
+X \sim N(\mu_x, \sigma_x^2), \quad Y \sim N(\mu_y, \sigma_y^2)
+$$
+
+**Datos**
+
+| Tipo | $\bar{x}$ | $s^2$ | $n$ |
+|-----|----------|------|----|
+| A | 28.10 | 3.26 | 51 |
+| B | 27.09 | 3.63 | 101 |
+
+### Contraste sobre la media
+
+$$
+H_0: \mu_x = 26.5 \quad \text{vs} \quad H_1: \mu_x > 26.5
+$$
+
+Estadístico:
+$$
+Z = \frac{\bar{X} - \mu_0}{s/\sqrt{n}}
+$$
+
+Región crítica:
+$$
+Z > z_{1-\alpha}
+$$
+
+Conclusión: se rechaza $H_0$ para ambas marcas.
+
+---
+
+## Aplicación 8.2: Límites de velocidad
+
+$$
+H_0: \mu = 90 \quad \text{vs} \quad H_1: \mu < 90
+$$
+
+Estadístico t:
+$$
+T = \frac{\bar{X} - \mu_0}{s/\sqrt{n}}
+$$
+
+Conclusión: no se rechaza $H_0$.
+
+---
+
+## Aplicación 8.3: Consumo de marihuana
+
+$$
+H_0: \mu = 15 \quad \text{vs} \quad H_1: \mu > 15
+$$
+
+$$
+H_0: \sigma^2 = 20 \quad \text{vs} \quad H_1: \sigma^2 > 20
+$$
+
+Conclusión: no se rechaza $H_0$ en ambos casos.
+
+**Sugerencia de imagen:** distribución t y chi-cuadrado con regiones críticas resaltadas.

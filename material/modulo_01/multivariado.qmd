@@ -1,0 +1,330 @@
+# Organización de Datos Multivariados
+
+
+En el caso de la **estadística multivariada**, ya no se mide una sola característica por cada elemento o unidad poblacional (o muestral), sino un conjunto de $p$ características simultáneamente. Esta situación puede representarse mediante una **matriz de datos**, como se ilustra en la *Figura 5.1*, donde cada fila corresponde a una unidad observacional y cada columna a una variable medida.
+
+**Sugerencia de imagen:**  
+Matriz de datos multivariados (filas = individuos, columnas = variables).
+
+En este contexto, el **análisis exploratorio de datos** resulta fundamental para observar patrones de comportamiento en el conjunto de variables. El análisis gráfico suele ser de gran ayuda, ya que permite identificar grupos de elementos cuyo comportamiento es similar en varias características. Sin embargo, cuando el número de observaciones es grande, el uso indiscriminado de gráficos puede generar una cantidad excesiva de visualizaciones, dificultando la interpretación global.  
+
+Una forma de abordar este problema consiste en trabajar con **muestras representativas** del conjunto de datos. La recomendación general es utilizar dos o tres muestras que, si presentan rasgos similares, permitan extender las conclusiones a la población completa.
+
+Entre las gráficas más utilizadas en este tipo de análisis se encuentra la **matriz de asociaciones**, que muestra la relación entre pares de variables cuantitativas. Cuando las variables no son cuantitativas, existen alternativas gráficas, tales como:
+
+- Caras de Chernoff  
+- Gráficas de perfiles  
+- Gráficas de barras, entre otras
+
+
+
+### Aplicación 5.1
+
+Considérese una muestra de clientes a los cuales se les han medido las siguientes características:
+
+- $V_1$: Pago de consumo de luz  
+- $V_2$: Pago de consumo de agua  
+- $V_3$: Pago de consumo de teléfono  
+- $V_4$: Porcentaje del ingreso mensual destinado al pago de servicios  
+- $V_5$: Porcentaje del sueldo destinado a vivienda y locomoción  
+
+Los datos observados se presentan a continuación:
+
+| V1 | V2 | V3 | V4 | V5 |
+|----|----|----|----|----|
+| 19,16 | 60,98 | 94,44 | 31,43 | 52,86 |
+| 19,45 | 9,97 | 110,75 | 18,18 | 46,55 |
+| 14,04 | 12,98 | 105,36 | 21,62 | 46,14 |
+| … | … | … | … | … |
+
+En la *Figura 5.2* se muestra una **matriz de gráficas de asociación**, donde en la diagonal aparecen histogramas de frecuencia de cada variable y fuera de ella, gráficos de dispersión entre pares de variables.
+
+**Sugerencia de imagen:**  
+Matriz de dispersión con histogramas en la diagonal.
+
+En dichas gráficas se observan claramente **dos conjuntos de observaciones**, lo que sugiere la posible existencia de dos grupos de clientes con características similares dentro de cada grupo y diferentes entre grupos.
+
+Esta apreciación se ve reforzada mediante las **caras de Chernoff**, mostradas en la *Figura 5.3*, donde cada variable se representa mediante un rasgo facial distinto. A grandes rasgos, se identifican dos tipos de caras, lo que apoya la hipótesis de agrupación.
+
+**Sugerencia de imagen:**  
+Caras de Chernoff representando cinco variables.
+
+Sin embargo, las **gráficas de perfiles** (Figura 5.4) introducen cierto grado de duda, ya que parecen sugerir la existencia de más de dos grupos. Por ejemplo:
+
+1. Entre los casos 5 al 12 se observa un aumento en la variable $V_5 $, en comparación con los casos 13 al 20.  
+2. Los casos 1 y del 21 al 26 difieren en su forma respecto de los casos 2 al 4.
+
+Estos antecedentes conducen a la creencia *a priori* de que podrían existir hasta **cuatro grupos** dentro de las observaciones.
+
+**Sugerencia de imagen:**  
+Gráficas de perfiles por caso.
+
+---
+
+## Organización de Datos
+
+A medida que aumenta el número de características medidas, se vuelve prácticamente imposible organizar los datos de manera efectiva sin perder claridad. Para extraer información relevante, una estrategia común es utilizar **tablas de doble entrada**, donde se seleccionan pares de características de interés.
+
+### Tablas de Frecuencia de Doble Entrada
+
+Sea $n_{ij}$ la cantidad de unidades que pertenecen a la clase $i$-ésima de la característica $B$ y a la clase $j$-ésima de la característica $A$.
+
+| Característica B \ Característica A | A1 | A2 | … | Ar |
+|------------------------------------|----|----|----|----|
+| B1 | $n_{11}$ | $n_{12}$ | … | $n_{1r}$ |
+| B2 | $n_{21}$ | $n_{22}$ | … | $n_{2r}$ |
+| … | … | … | … | … |
+| Bk | $n_{k1}$ | $n_{k2}$ | … | $n_{kr}$ |
+
+Estas cantidades corresponden a **frecuencias absolutas**. La tabla también puede expresarse en términos de **frecuencias relativas**, definidas como:
+
+$$
+f_{ij} = \frac{n_{ij}}{n}
+$$
+
+donde $n$ es el tamaño total de la muestra.
+
+---
+
+### Aplicación 5.2
+
+Se realiza una encuesta a profesionales de una región, midiendo las variables:
+
+- Cargo  
+- Sueldo  
+- Valor del automóvil (en miles de pesos)
+
+Al tratar la variable *ingreso*, que es continua, se requiere agruparla en clases. En la siguiente tabla se presentan las **frecuencias absolutas** para las variables ingreso y cargo:
+
+| Ingresos [\$] | Otros | Ventas | Adm. | Ejecut. | Sub-G. | Gerente |
+|---------------|-------|--------|------|---------|--------|----------|
+| [119–514[ | 8 | 7 | 8 | 30 | 0 | 0 |
+| [514–909[ | 14 | 7 | 21 | 26 | 0 | 0 |
+| [909–1.303[ | 4 | 3 | 8 | 16 | 4 | 0 |
+| … | … | … | … | … | … | … |
+
+Dado que las clases tienen distinta amplitud, el **histograma bivariado** debe ajustarse a dichas amplitudes.
+
+**Sugerencia de imagen:**  
+Histograma bivariado Ingreso vs. Cargo.
+
+La tabla siguiente presenta las **frecuencias relativas conjuntas**:
+
+| Ingresos [\$] | Otros | Ventas | Adm. | Ejecut. | Sub-G. | Gerente |
+|---------------|-------|--------|------|---------|--------|----------|
+| [119–514[ | 0,041 | 0,036 | 0,041 | 0,155 | 0,000 | 0,000 |
+| [514–909[ | 0,072 | 0,036 | 0,109 | 0,134 | 0,000 | 0,000 |
+| … | … | … | … | … | … | … |
+
+---
+
+### Frecuencias Marginales
+
+Las **frecuencias marginales** se obtienen sumando por filas o columnas:
+
+$$
+n_{i\bullet} = \sum_{j=1}^{r} n_{ij}, \qquad
+n_{\bullet j} = \sum_{i=1}^{k} n_{ij}
+$$
+
+En términos relativos:
+
+$$
+f_{i\bullet} = \frac{n_{i\bullet}}{n}, \qquad
+f_{\bullet j} = \frac{n_{\bullet j}}{n}
+$$
+
+---
+
+### Aplicación 5.3
+
+A partir de los datos anteriores, se observa que la frecuencia marginal del ingreso se ve fuertemente afectada por la gran amplitud del último intervalo, lo que refuerza la necesidad de ajustar por amplitud al interpretar resultados.
+
+---
+
+### Aplicación 5.4
+
+Se analizan las variables **horas de trabajo semanal** y **desempeño laboral** (escala 1–9):
+
+| Desempeño | 15–25 | 25–35 | 35–45 |
+|-----------|-------|-------|-------|
+| 1–3 | 16 | 18 | 12 |
+| 4–6 | 11 | 14 | 9 |
+| 7–9 | 9 | 7 | 4 |
+
+Las frecuencias relativas conjuntas y marginales evidencian una marcada **asimetría** en la variable desempeño.
+
+---
+
+## Frecuencias Condicionales
+
+Las **frecuencias condicionales** permiten analizar una variable dado un valor específico de otra. Se definen como:
+
+$$
+f_{i|j} = \frac{n_{ij}}{n_{\bullet j}}, \qquad
+f_{j|i} = \frac{n_{ij}}{n_{i\bullet}}
+$$
+
+---
+
+### Aplicación 5.5
+
+Se presentan las frecuencias relativas del ingreso **condicionadas al cargo**, lo que permite calcular indicadores como el promedio condicional por cargo.
+
+**Sugerencia de imagen:**  
+Gráfica de promedios de ingreso por cargo.
+
+---
+
+## 5.3 Asociación de Variables
+
+En estadística descriptiva multivariada, cada unidad observacional se representa mediante un vector de $p$ características. Para pares de variables al menos ordinales, una herramienta fundamental es el **diagrama de dispersión**, que representa los pares:
+
+$$
+(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)
+$$
+
+**Sugerencia de imagen:**  
+Gráfico de dispersión clásico.
+
+### Coeficiente de Correlación de Pearson
+
+El grado de asociación lineal entre dos variables cuantitativas se mide mediante el coeficiente de correlación de Pearson:
+
+$$
+r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}
+{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}
+$$
+
+Este coeficiente toma valores en el intervalo \([-1, 1]$. Valores cercanos a $\pm 1$ indican una fuerte asociación lineal, mientras que valores cercanos a 0 indican ausencia de asociación lineal.
+
+**Sugerencia de imagen:**  
+Conjunto de diagramas de dispersión mostrando distintos valores de $r $.
+
+---
+
+### Aplicación 5.6
+
+Se estudia la relación entre la **demanda de artefactos**, su precio, el ingreso medio y el precio de un bien sustituto. A partir del análisis marginal y de los diagramas de dispersión, se calculan los coeficientes de correlación de Pearson:
+
+| $r_{P}$ | Precio Artefacto | Ingreso Medio | Precio Sustituto |
+|-------------|------------------|---------------|------------------|
+| Precio Artefacto | 1,0000 | -0,9096 | -0,8830 |
+| Ingreso Medio | -0,9096 | 1,0000 | 0,8681 |
+| Precio Sustituto | -0,8830 | 0,8681 | 1,0000 |
+
+Estos resultados confirman una **fuerte asociación lineal**, positiva o negativa según el par de variables analizado, coherente con las observaciones gráficas previas.
+
+
+### Correlación para datos agrupados
+
+Cuando las variables se presentan en forma **agrupada en tablas de doble entrada**, el coeficiente de correlación de Pearson puede calcularse utilizando las marcas de clase de cada intervalo.
+
+Sea $m_{x_i}$ la marca de clase de la $i$-ésima clase de la variable $X $, y $m_{y_j}$ la marca de clase de la $j$-ésima clase de la variable $Y $. El coeficiente de correlación de Pearson para datos agrupados se define como:
+
+$$
+r_P =
+\frac{
+\sum_{i=1}^{k} \sum_{j=1}^{r}
+f_{ij}
+\left(m_{x_i} - \bar{x}\right)
+\left(m_{y_j} - \bar{y}\right)
+}{
+\sqrt{
+\sum_{i=1}^{k}
+f_{i\bullet}
+\left(m_{x_i} - \bar{x}\right)^2
+}
+\sqrt{
+\sum_{j=1}^{r}
+f_{\bullet j}
+\left(m_{y_j} - \bar{y}\right)^2
+}
+}
+$$
+
+donde:
+
+- $f_{ij}$ corresponde a la frecuencia relativa conjunta  
+- $f_{i\bullet}$ y $f_{\bullet j}$ son las frecuencias relativas marginales  
+- $\bar{x}$ y $\bar{y}$ representan las medias aproximadas de las variables  
+
+Este coeficiente conserva las mismas propiedades interpretativas que el coeficiente de Pearson para datos no agrupados.
+
+---
+
+### Aplicación 5.7
+
+A partir de la tabla de doble entrada que relaciona **ingreso mensual** y **valor del automóvil**, se calculan los coeficientes de correlación correspondientes, utilizando como aproximación las marcas de clase de cada intervalo.
+
+Los resultados obtenidos muestran una asociación positiva moderada entre ambas variables, coherente con la interpretación económica del fenómeno: a mayor ingreso, mayor es el valor promedio del automóvil adquirido.
+
+**Sugerencia de imagen:**  
+Diagrama de dispersión construido a partir de marcas de clase ponderadas por frecuencia.
+
+---
+
+## Medidas de Asociación para Variables Cualitativas
+
+Cuando las variables son **cualitativas u ordinales**, el coeficiente de correlación de Pearson deja de ser apropiado. En estos casos, se emplean medidas de asociación basadas en tablas de contingencia.
+
+---
+
+### Coeficiente Chi-cuadrado de Independencia
+
+El **estadístico chi-cuadrado** permite evaluar si existe independencia entre dos variables cualitativas.
+
+Sea $O_{ij}$ la frecuencia observada en la celda $(i,j)$ y $E_{ij}$ la frecuencia esperada bajo el supuesto de independencia:
+
+$$
+E_{ij} = \frac{n_{i\bullet} n_{\bullet j}}{n}
+$$
+
+El estadístico se define como:
+
+$$
+\chi^2 =
+\sum_{i=1}^{k} \sum_{j=1}^{r}
+\frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+$$
+
+Valores altos del estadístico indican evidencia contra la hipótesis de independencia.
+
+**Sugerencia de imagen:**  
+Tabla de contingencia con frecuencias observadas y esperadas resaltadas.
+
+---
+
+### Coeficiente de Contingencia de Pearson
+
+A partir del estadístico chi-cuadrado se define el **coeficiente de contingencia**:
+
+$$
+C = \sqrt{\frac{\chi^2}{\chi^2 + n}}
+$$
+
+Este coeficiente toma valores en el intervalo $[0,1) $, donde valores cercanos a 0 indican baja asociación y valores cercanos a 1 indican alta asociación.
+
+---
+
+### Coeficiente V de Cramér
+
+Una medida alternativa y ampliamente utilizada es el **coeficiente V de Cramér**, definido como:
+
+$$
+V = \sqrt{
+\frac{\chi^2}{n \cdot \min(k-1, r-1)}
+}
+$$
+
+Este coeficiente presenta la ventaja de estar normalizado en el intervalo \([0,1]$, lo que facilita la comparación entre tablas de distinto tamaño.
+
+---
+
+### Aplicación 5.8
+
+Se estudia la relación entre el **nivel educacional** y la **categoría ocupacional** de un grupo de individuos. El cálculo del estadístico chi-cuadrado y del coeficiente V de Cramér muestra una asociación significativa entre ambas variables, lo que sugiere que el nivel educacional influye en la categoría ocupacional alcanzada.
+
+**Sugerencia de imagen:**  
+Gráfico de barras apiladas representando la distribución condicional de ocupación según nivel educacional.
+

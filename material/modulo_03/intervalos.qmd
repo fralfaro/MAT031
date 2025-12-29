@@ -1,0 +1,388 @@
+# Inferencia Estadística
+
+## Introducción
+Como se ha podido apreciar en los módulos anteriores, **la estadística trata con la recolección de datos, su análisis e interpretación**.
+
+En inferencia clásica y teoría de decisiones, las observaciones se postulan como variables aleatorias. La ley o distribución de la(s) variable(s) aleatoria(s) observable(s), denotada por $ P $, se asume perteneciente a una familia paramétrica conocida en su forma general, pero con parámetros desconocidos.  
+Un objetivo fundamental de la inferencia estadística es determinar valores factibles de dichos parámetros a partir de los datos.
+
+La utilidad de los datos, generados a partir de muestras probabilísticas, es **inferir características esenciales de la población a partir de la muestra**.
+
+Una de las áreas centrales de la inferencia estadística es la **estimación de parámetros**, para lo cual se requieren algunas definiciones básicas.
+
+**Definición 7.1 (Parámetro).**  
+Es una característica numérica de la distribución de la población que describe, parcial o completamente, la función de probabilidad de la característica de interés. Habitualmente se simboliza por la letra griega $ \theta $.
+
+**Definición 7.2 (Espacio Paramétrico).**  
+Es el conjunto de posibles valores que puede tomar el(los) parámetro(s). Se simboliza por la letra griega mayúscula $ \Theta $.
+
+**Figura sugerida 7.1.** Esquema del problema de estimación: población → muestra → estadístico → estimador del parámetro.
+
+Los posibles valores de la muestra aleatoria constituyen el **espacio de información**, y utilizando algún resumen apropiado (estadística), se construye un estimador del(los) parámetro(s) asociado(s) a la familia de distribución supuesta.
+
+Se distinguen dos métodos principales de estimación:
+- **Estimación puntual**, que entrega un único valor numérico para el parámetro.
+- **Estimación por intervalo**, que entrega un conjunto de valores plausibles para el parámetro.
+
+---
+
+## 7.2 Método de Momentos
+
+Es uno de los métodos más antiguos de estimación puntual. Consiste en igualar los momentos poblacionales con los correspondientes momentos muestrales. Este método genera tantas ecuaciones como parámetros se deseen estimar.
+
+**Definición 7.3 (Momentos muestrales).**  
+Sean $ X_1, X_2, \dots, X_n $ una muestra aleatoria. El *r-ésimo momento muestral* respecto del origen se define como:
+
+$$
+M_r = \frac{1}{n} \sum_{i=1}^{n} X_i^r
+$$
+
+Para $ r = 1 $ se obtiene la media muestral; para $ r = 2,3,4 $, se obtienen medidas asociadas a variabilidad y forma.
+
+**Definición 7.4 (Momentos poblacionales).**  
+Sea $ X $ una variable aleatoria con función de probabilidad $ f(x;\theta) $. El *r-ésimo momento poblacional* se define como:
+
+$$
+\mu_r = \mathbb{E}[X^r]
+$$
+
+---
+
+### Aplicación 7.1
+
+Sea $ X_1, X_2, \dots, X_n $ una muestra aleatoria de una población con distribución Bernoulli:
+
+$$
+\mathbb{P}(X = x) = p^x(1-p)^{1-x}, \quad x = 0,1
+$$
+
+El primer momento poblacional es:
+
+$$
+\mathbb{E}[X] = p
+$$
+
+Igualando con el primer momento muestral:
+
+$$
+\hat{p} = \bar{X}
+$$
+
+---
+
+### Aplicación 7.2
+
+Suponga que el tiempo de vida (en años) de un componente eléctrico tiene densidad:
+
+$$
+f(x;\alpha) = \frac{3}{\alpha^3}x^2, \quad 0 < x < \alpha
+$$
+
+El primer momento poblacional es:
+
+$$
+\mathbb{E}[X] = \frac{3}{4}\alpha
+$$
+
+Igualando con la media muestral:
+
+$$
+\hat{\alpha} = \frac{4}{3}\bar{X}
+$$
+
+---
+
+### Aplicación 7.3
+
+Sea $ X_1, \dots, X_n $ una muestra de una población Exponencial con parámetro $ \theta $:
+
+$$
+f(x;\theta) = \frac{1}{\theta}e^{-x/\theta}, \quad x>0
+$$
+
+Como:
+
+$$
+\mathbb{E}[X] = \theta
+$$
+
+Se obtiene el estimador de momentos:
+
+$$
+\hat{\theta} = \bar{X}
+$$
+
+---
+
+## 7.3 Método de Máxima Verosimilitud
+
+Este método selecciona como estimador el valor del parámetro que maximiza la probabilidad de observar la muestra.
+
+**Definición 7.5 (Función de Verosimilitud).**  
+Sea $ X_1, \dots, X_n $ una muestra aleatoria con densidad $ f(x;\theta) $. La verosimilitud es:
+
+$$
+L(\theta;\mathbf{x}) = \prod_{i=1}^{n} f(x_i;\theta)
+$$
+
+Para facilitar los cálculos se utiliza la **log-verosimilitud**:
+
+$$
+\ell(\theta;\mathbf{x}) = \ln L(\theta;\mathbf{x})
+$$
+
+---
+
+### Aplicación 7.4
+
+Sea $ X_1, \dots, X_n $ una muestra con densidad:
+
+$$
+f(x;\phi) = \frac{1}{4} e^{-(x-\phi)/4}, \quad x>\phi
+$$
+
+La log-verosimilitud es:
+
+$$
+\ell(\phi) = -n\ln 4 - \sum_{i=1}^{n}\frac{x_i-\phi}{4}
+$$
+
+Derivando e igualando a cero:
+
+$$
+\hat{\phi}_{MV} = \bar{X} - 4
+$$
+
+---
+
+## 7.4 Propiedades de los Estimadores
+
+Sea $ T = T(X_1,\dots,X_n) $ una estadística.
+
+### Estimadores Insesgados
+
+**Definición 7.6 (Insesgamiento).**  
+Un estimador $ T $ de $ \theta $ es insesgado si:
+
+$$
+\mathbb{E}[T] = \theta
+$$
+
+---
+
+### Error Cuadrático Medio
+
+**Definición 7.7.**
+
+$$
+ECM(T) = \mathbb{E}[(T-\theta)^2]
+$$
+
+Se puede descomponer como:
+
+$$
+ECM(T) = \operatorname{Var}(T) + (\mathbb{E}[T]-\theta)^2
+$$
+
+---
+
+### Eficiencia
+
+**Definición 7.8 (Eficiencia relativa).**
+
+$$
+Ef(T_1,T_2) = \frac{ECM(T_2)}{ECM(T_1)}
+$$
+
+---
+
+### Consistencia
+
+**Definición 7.9 (Consistencia en media cuadrática).**
+
+$$
+\lim_{n\to\infty} ECM(T_n) = 0
+$$
+
+---
+
+## 7.5 Estimación por Intervalo
+
+La estimación puntual no entrega información sobre la precisión del estimador. Los **intervalos de confianza** solucionan este problema.
+
+**Definición 7.10.**  
+Un intervalo $ [T_1, T_2] $ es un intervalo de confianza para $ \theta $ con nivel $ 100\gamma\% $ si:
+
+$$
+\mathbb{P}(T_1 \le \theta \le T_2) = \gamma
+$$
+
+---
+
+### Intervalo de Confianza para la Media (σ conocida)
+
+$$
+IC(\mu) = \left[\bar{X} \pm Z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}\right]
+$$
+
+### Intervalo de Confianza para la Media (σ desconocida)
+
+$$
+IC(\mu) = \left[\bar{X} \pm t_{1-\alpha/2,n-1}\frac{S}{\sqrt{n}}\right]
+$$
+
+---
+
+### Intervalo de Confianza para una Proporción
+
+$$
+IC(p) = \left[\hat{p} \pm Z_{1-\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\right]
+$$
+
+---
+
+### Intervalo de Confianza para la Varianza
+
+$$
+IC(\sigma^2) =
+\left[
+\frac{(n-1)S^2}{\chi^2_{1-\alpha/2,n-1}},
+\frac{(n-1)S^2}{\chi^2_{\alpha/2,n-1}}
+\right]
+$$
+
+---
+
+**Figura sugerida final:** Curvas Normal, t-Student y Chi-cuadrado ilustrando regiones de confianza.
+
+## Intervalos Unilaterales de Confianza
+
+En algunos problemas prácticos no interesa estimar un intervalo bilateral, sino establecer **una cota superior o inferior** para el parámetro poblacional.
+
+### Intervalo Unilateral Superior para la Media
+
+Se desea encontrar un valor $ k $ tal que:
+
+$$
+\mathbb{P}(\mu \le k) = 1-\alpha
+$$
+
+Partiendo de la cantidad pivotal:
+
+$$
+Z = \frac{\bar{X}-\mu}{\sigma/\sqrt{n}} \sim N(0,1)
+$$
+
+Se tiene:
+
+$$
+\mathbb{P}\left( \frac{\bar{X}-\mu}{\sigma/\sqrt{n}} \ge -Z_{1-\alpha} \right)=1-\alpha
+$$
+
+Lo que conduce a:
+
+$$
+\mathbb{P}\left(\mu \le \bar{X}+Z_{1-\alpha}\frac{\sigma}{\sqrt{n}}\right)=1-\alpha
+$$
+
+Por tanto, el intervalo unilateral superior es:
+
+$$
+IC_U(\mu) = \left(-\infty,\; \bar{X}+Z_{1-\alpha}\frac{\sigma}{\sqrt{n}}\right]
+$$
+
+Si la varianza poblacional es desconocida, se reemplaza $ Z_{1-\alpha} $ por $ t_{1-\alpha,n-1} $ y $ \sigma $ por $ S $.
+
+---
+
+## Aplicación 7.15: *La decisión: AT\&T o Sprint*
+
+Un contador debe decidir entre dos compañías telefónicas para llamadas de larga distancia. Se obtiene la siguiente información:
+
+| Compañía | Número de llamadas | Media (US$) | Desviación estándar (US$) |
+|--------|-------------------|-------------|---------------------------|
+| AT\&T  | 145               | 4.07        | 0.97                      |
+| Sprint | 102               | 3.89        | 0.85                      |
+
+Se definen las variables aleatorias:
+
+- $ X $: Costo de llamadas en AT\&T, $ X \sim N(\mu_x,\sigma_x^2) $
+- $ Y $: Costo de llamadas en Sprint, $ Y \sim N(\mu_y,\sigma_y^2) $
+
+### Intervalos de confianza del 96% para la media
+
+$$
+IC_{96\%}(\mu_x)=
+\left[\bar{x}\pm Z_{0.98}\frac{s_x}{\sqrt{n_x}}\right]
+= [3.90;\,4.42]
+$$
+
+**Interpretación:**  
+Con un 96% de confianza, el verdadero costo medio de llamadas en AT\&T se encuentra entre **US$ 3.90** y **US$ 4.42**.
+
+$$
+IC_{96\%}(\mu_y)=
+\left[\bar{y}\pm Z_{0.98}\frac{s_y}{\sqrt{n_y}}\right]
+= [3.72;\,4.31]
+$$
+
+**Interpretación:**  
+Con un 96% de confianza, el verdadero costo medio de llamadas en Sprint se encuentra entre **US$ 3.72** y **US$ 4.31**.
+
+---
+
+### Intervalos de confianza del 96% para la varianza
+
+$$
+IC_{96\%}(\sigma_x^2)=
+\left[
+\frac{(n_x-1)s_x^2}{\chi^2_{0.98,n_x-1}},
+\frac{(n_x-1)s_x^2}{\chi^2_{0.02,n_x-1}}
+\right]
+= [0.71;\,1.17]
+$$
+
+**Interpretación:**  
+Con un 96% de confianza, la varianza del costo en AT\&T se encuentra entre **0.71** y **1.17 US$²**.
+
+$$
+IC_{96\%}(\sigma_y^2)=
+\left[
+\frac{(n_y-1)s_y^2}{\chi^2_{0.98,n_y-1}},
+\frac{(n_y-1)s_y^2}{\chi^2_{0.02,n_y-1}}
+\right]
+= [0.51;\,0.93]
+$$
+
+**Interpretación:**  
+Con un 96% de confianza, la varianza del costo en Sprint se encuentra entre **0.51** y **0.93 US$²**.
+
+---
+
+### Intervalo Unilateral del 98% para la Media de AT\&T
+
+Se desea una **cota superior** para el verdadero costo medio de AT\&T.
+
+$$
+\mathbb{P}(\mu_x \le k)=0.98
+$$
+
+Usando la distribución normal:
+
+$$
+k=\bar{X}+Z_{0.98}\frac{s_x}{\sqrt{n_x}}
+$$
+
+Por tanto, el intervalo unilateral es:
+
+$$
+IC_{98\%}(\mu_x)=(-\infty;\,4.42]
+$$
+
+**Interpretación:**  
+Con un 98% de confianza, el costo medio real de llamadas en AT\&T no supera **US$ 4.42**. En términos prácticos, el costo no puede ser negativo.
+
+---
+
+**Figura sugerida final:**  
+Comparación gráfica de intervalos de confianza para AT\&T y Sprint (medias y dispersión), mostrando solapamiento y rangos de decisión.

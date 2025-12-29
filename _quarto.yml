@@ -1,0 +1,53 @@
+project:
+  type: book
+  output-dir: docs
+  
+book:
+  title: "MAT031: Probabilidad y Estadística"
+  author: 
+    - "Francisco Alfaro" 
+  date: "09/03/2026"
+  favicon: "images/icon.png"
+  repo-url: "https://github.com/Seth-Nut/ws-usm_uchile-2025"
+  sidebar:
+    logo: "images/logo.png"
+  
+
+
+  chapters:
+    - index.qmd
+    - material/modulo_01/intro.qmd
+    - part:  Estadística descriptiva
+      chapters:
+        - material/modulo_01/univariado.qmd
+        - material/modulo_01/multivariado.qmd
+    - part:  Teoría de Probabilidad 
+      chapters:
+        - material/modulo_02/probabilidad.qmd
+
+    - part:  Inferencia estadística
+      chapters:
+        - material/modulo_03/intervalos.qmd
+        - material/modulo_03/tests.qmd
+
+  
+index:
+  qmd:
+lang: es
+
+format:
+  html:
+    theme:
+      light: [flatly, light.scss]
+      dark: [darkly, dark.scss]
+
+    number-sections: false
+    toc: true
+    page-layout: full
+  epub:
+    cover-image: images/icon.png
+
+
+filters: 
+  - pyodide
+

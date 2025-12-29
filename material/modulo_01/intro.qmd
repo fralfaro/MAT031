@@ -1,0 +1,337 @@
+# Introducción 
+
+## Proceso de medición
+
+### Medir es construir una representación del mundo
+
+En la vida cotidiana y en las organizaciones estamos rodeados de **indicadores**: porcentajes, índices, promedios, rankings. Estos números influyen en diagnósticos, evaluaciones y decisiones. Sin embargo, rara vez se cuestiona **cómo se obtienen** ni **qué tan fielmente representan la realidad**.
+
+La estadística comienza antes del cálculo: comienza con la **medición**.
+
+Medir no es simplemente observar un número. Es un **proceso** mediante el cual se asignan símbolos —generalmente números— a fenómenos del mundo real, siguiendo **reglas explícitas** definidas por un modelo matemático. Esta asignación conecta dos dominios distintos:
+
+* el **mundo empírico**, donde ocurren los hechos, y
+* el **mundo abstracto**, donde los representamos mediante números.
+
+Por esta razón, toda investigación debe preocuparse cuidadosamente del **diseño de la medición**, ya que los datos no son un reflejo perfecto de la realidad, sino una **representación construida**.
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_01.png" width="600px" >
+  <figcaption>
+    <strong>Figura 1:</strong> Fenómeno real → Instrumento → Regla de medición → Número.
+  </figcaption>
+</figure>
+```
+
+
+### Instrumentos de medición: el caso de las encuestas
+
+Un ejemplo habitual de medición es la encuesta. El cuestionario actúa como **instrumento de medición**, y sus respuestas generan indicadores numéricos. Sin embargo, que un número exista no garantiza que represente correctamente lo que se desea estudiar.
+
+Por ello, el diseño del instrumento es crítico. En el caso de encuestas, las preguntas deben:
+
+* ser claras y comprensibles,
+* evitar ambigüedades,
+* medir un solo aspecto a la vez,
+* no inducir respuestas,
+* y respetar el tiempo del encuestado.
+
+Además, al aplicar el instrumento surgen decisiones fundamentales:
+¿a cuántas personas medir?, ¿cómo seleccionarlas?, ¿qué hacer ante la no respuesta?, ¿son válidas las respuestas obtenidas?
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_02.png" width="500px" >
+  <figcaption>
+    <strong>Figura 2:</strong> pregunta mal formulada vs pregunta bien formulada.
+  </figcaption>
+</figure>
+```
+
+
+
+### Características fundamentales de una medición
+
+**Qué información contienen realmente los números**
+
+No todos los números entregan el mismo tipo de información. En estadística, las mediciones pueden poseer hasta **cuatro propiedades fundamentales**, que se incorporan de manera progresiva:
+
+1. **Unicidad**: los números identifican categorías distintas.
+2. **Orden**: permiten comparar “más” o “menos”.
+3. **Distancia**: las diferencias entre valores son significativas y comparables.
+4. **Proporción**: existe un cero absoluto que permite hablar de razones (doble, mitad).
+
+A medida que se incorporan estas propiedades, aumenta la **riqueza informativa** del dato y también las posibilidades de análisis estadístico.
+
+
+
+### Escalas de medición
+
+**Nominal, ordinal, intervalar y de razón**
+
+Las escalas de medición se definen según las propiedades que cumplen:
+
+* **Escala nominal**: clasifica sin ordenar (etiquetas).
+  Ej.: sexo, región, marca.
+* **Escala ordinal**: ordena sin cuantificar diferencias.
+  Ej.: bajo–medio–alto.
+* **Escala intervalar**: permite comparar diferencias, pero no proporciones.
+  Ej.: temperatura en °C.
+* **Escala de razón**: incorpora un cero absoluto y permite comparaciones proporcionales.
+  Ej.: peso, estatura, ventas.
+
+Reconocer la escala de medición es fundamental, ya que **determina qué operaciones estadísticas tienen sentido** y cuáles no.
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_03.png" width="500px" >
+  <figcaption>
+    <strong>Figura 3:</strong>  Cuadro comparativo con ejemplos por tipo de escala.
+  </figcaption>
+</figure>
+```
+
+
+
+
+
+### Error de medición
+
+**Medir siempre implica incertidumbre**
+
+Toda medición puede representarse como el resultado de la observación de un fenómeno, denotada por $O_i$. Esta observación se compone de tres elementos fundamentales:
+
+
+- $R_i$: el valor real o verdadero de la medición,
+- $S_i$: el error sistemático asociado al proceso de medición,
+- $A_i$: el error aleatorio inherente a la observación.
+
+En una primera aproximación, la relación entre estos componentes puede expresarse mediante el modelo aditivo:
+$$
+O_i = R_i + S_i + A_i.
+$$
+
+
+
+
+Finalmente, se distinguen dos conceptos clave:
+
+* **Fiabilidad**: consistencia de la medición (bajo error aleatorio).
+* **Validez**: grado en que realmente se mide lo que se pretende medir.
+
+Una medición puede ser fiable pero no válida; sin fiabilidad, no puede haber validez.
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_04.jpg" width="600px" >
+  <figcaption>
+    <strong>Figura 4:</strong>  Diana de tiro mostrando combinaciones de precisión y validez.
+  </figcaption>
+</figure>
+```
+
+
+## Estadística y ciencia
+
+### El rol de la estadística en la producción de conocimiento científico
+
+La expresión *método científico* no alude a un procedimiento único ni rígido. En la práctica, los científicos utilizan diversos enfoques y herramientas, pero todos comparten un objetivo central: **producir conocimiento científico fundamentado**.
+
+Este proceso comienza con **preguntas bien formuladas**, susceptibles de ser respondidas mediante evidencia empírica y razonamiento riguroso. La investigación científica busca precisamente obtener respuestas confiables a estas interrogantes a través de procedimientos sistemáticos.
+
+Pese a la diversidad de métodos existentes, es posible identificar elementos comunes en toda investigación científica:
+
+1. revisión crítica de hechos y teorías previas,
+2. formulación de hipótesis contrastables,
+3. evaluación objetiva de resultados y conclusiones.
+
+
+
+### Enfoques clásicos y modernos de investigación científica
+
+Tradicionalmente, la investigación científica ha adoptado una postura **descriptiva y analítica**, en la cual el investigador se considera externo al fenómeno estudiado. Desde esta perspectiva clásica —de raíz cartesiana—, el problema se aborda fragmentando sus componentes y analizando sus relaciones, bajo una estructura conceptual que puede resumirse como:
+
+> **observador – problema – entorno**
+
+Este enfoque ha sido exitoso en muchos ámbitos, pero presenta limitaciones cuando los fenómenos son complejos, dinámicos o altamente interdependientes.
+
+En respuesta a estas limitaciones, han surgido enfoques más recientes inspirados en la **Teoría General de Sistemas** y la **cibernética**, que proponen una visión **global e integrada** del fenómeno. En estos enfoques, el observador forma parte del sistema que estudia, y el conocimiento se construye a partir de una interacción operacional, experimental y perceptual con el fenómeno. La validez del conocimiento depende entonces de la **coherencia del proceso de observación** dentro de un dominio claramente definido.
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_05.png" width="500px" >
+  <figcaption>
+    <strong>Figura 5:</strong>  Enfoque clásico vs Enfoque sistémico
+  </figcaption>
+</figure>
+```
+
+
+
+
+
+### La estadística como pilar del método científico
+
+La estadística proporciona una forma de pensamiento **clara, disciplinada y rigurosa** para recolectar, organizar e interpretar información en contextos donde la **variabilidad y la incertidumbre** son inevitables. En este sentido, no es solo una técnica auxiliar, sino un **componente estructural del quehacer científico**.
+
+La estadística se ocupa de:
+
+* recolectar y clasificar datos,
+* resumir información relevante,
+* identificar patrones y regularidades,
+* realizar inferencias bajo incertidumbre,
+  con el objetivo último de **apoyar la toma de decisiones y la formulación de predicciones**.
+
+
+### Estadística descriptiva e inferencial
+
+Desde el punto de vista metodológico, la estadística puede dividirse en dos grandes áreas:
+
+* **Estadística descriptiva**: se centra en describir y resumir un conjunto de datos mediante tablas, gráficos y medidas numéricas, sin pretender generalizar más allá de los datos observados.
+
+* **Estadística inferencial**: busca extender las conclusiones obtenidas a partir de una muestra hacia una población más amplia, apoyándose en el cálculo de probabilidades para realizar estimaciones, contrastes de hipótesis y predicciones.
+
+Esta distinción es fundamental, ya que marca el paso desde la **descripción de los datos** hacia la **toma de decisiones basada en evidencia**.
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_06.png" width="600px" >
+  <figcaption>
+    <strong>Figura 6:</strong>  Muestra → inferencia → población
+  </figcaption>
+</figure>
+```
+
+
+
+## Introducción al muestreo
+
+### Por qué inferimos a partir de una parte y no del todo
+
+En la mayoría de los problemas reales, la **población de interés** —personas, objetos, eventos— es demasiado grande como para ser observada en su totalidad. Medir todos sus elementos suele ser **costoso, lento o directamente impracticable**.
+
+El muestreo surge como una solución fundamental: consiste en seleccionar un **subconjunto de elementos**, llamado **muestra**, con el objetivo de obtener información confiable sobre la población completa de manera más eficiente.
+
+La utilidad del muestreo no radica únicamente en el ahorro de recursos, sino en su capacidad para producir **estimaciones válidas**, siempre que la muestra sea **representativa** de la población.
+
+
+
+### Representatividad y diseño muestral
+
+Una muestra es representativa cuando refleja adecuadamente las características relevantes de la población. Cuanto mayor es esta representatividad, **mayor es la confiabilidad de las conclusiones** que se extraen.
+
+Las técnicas de muestreo forman un pilar central de la estadística, ya que el **alcance de las conclusiones** depende directamente de cómo se seleccionaron los datos. No toda muestra permite generalizar resultados.
+
+Desde el punto de vista metodológico, las observaciones pueden obtenerse:
+
+* a lo largo del tiempo, o
+* mediante un **diseño de muestreo**.
+
+El diseño muestral establece los principios que permiten seleccionar muestras representativas **al menor costo posible y con la mayor precisión alcanzable**.
+
+### Aleatorización: el principio clave del muestreo científico
+
+El concepto central del muestreo estadístico es la **aleatorización**. Seleccionar elementos al azar significa que la inclusión en la muestra no depende de decisiones subjetivas del investigador.
+
+La presencia o ausencia de aleatorización permite clasificar los métodos de muestreo en dos grandes categorías:
+
+* **Muestreo no probabilístico**:
+  los resultados describen únicamente a los individuos observados y **no permiten inferencias válidas sobre la población**.
+
+* **Muestreo probabilístico**:
+  cada elemento de la población tiene una **probabilidad conocida de ser seleccionado**, lo que habilita la inferencia estadística.
+
+Una aleatorización deficiente introduce **sesgo**, incluso si el tamaño muestral es grande.
+
+
+
+### Tipos de muestreo probabilístico
+
+
+En el muestreo probabilístico existen diversas técnicas, cuya elección depende del conocimiento previo de la población, del nivel de precisión requerido y de los costos asociados.
+
+
+
+#### Muestreo aleatorio simple (MAS)
+
+Cada elemento de la población tiene la **misma probabilidad** de ser seleccionado. Es adecuado cuando la población es relativamente homogénea respecto a la característica de interés y se dispone de una lista completa de sus elementos.
+
+Su lógica es equivalente a una **lotería**, donde la selección se realiza mediante números aleatorios.
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_07.png" width="600px" >
+  <figcaption>
+    <strong>Figura 7:</strong> Puntos distribuidos homogéneamente, algunos seleccionados al azar.
+  </figcaption>
+</figure>
+```
+
+
+
+#### Muestreo aleatorio sistemático
+
+Los elementos se seleccionan a intervalos regulares a partir de un arranque aleatorio. Su implementación es simple y eficiente, pero puede introducir sesgos si existe una **estructura periódica** en el listado de la población.
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_08.png" width="600px" >
+  <figcaption>
+    <strong>Figura 8:</strong> Lista numerada con selección cada *k*-ésimo elemento.
+  </figcaption>
+</figure>
+```
+
+
+
+
+#### Muestreo aleatorio estratificado
+
+La población se divide en **estratos homogéneos internamente**, pero distintos entre sí. Luego se selecciona una muestra aleatoria dentro de cada estrato.
+
+Este método:
+
+* reduce la variabilidad de los estimadores,
+* mejora la precisión,
+* y permite estudiar subpoblaciones específicas.
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_09.png" width="600px" >
+  <figcaption>
+    <strong>Figura 9:</strong> Población coloreada por grupos → muestras dentro de cada grupo.
+  </figcaption>
+</figure>
+```
+
+
+
+#### Muestreo aleatorio por conglomerados
+
+La unidad muestral es un **grupo de elementos** (conglomerado), no los elementos individuales. Se seleccionan conglomerados completos y, eventualmente, elementos dentro de ellos.
+
+Es útil cuando la población está organizada en grupos naturales y el acceso a los elementos individuales es costoso.
+
+
+
+
+```{=html}
+<figure style="text-align: center;">
+  <img src="images/ch1_10.png" width="600px" >
+  <figcaption>
+    <strong>Figura 10:</strong> Grupos compactos de puntos, algunos seleccionados completos.
+  </figcaption>
+</figure>
+```
+
+
+
+
+

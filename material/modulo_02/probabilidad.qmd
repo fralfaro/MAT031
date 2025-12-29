@@ -1,0 +1,761 @@
+# Elementos de Probabilidad
+
+## Introducción 
+
+En la investigación científica, por lo general, se requiere de modelos que ayuden a comprender el fenómeno bajo estudio. En un amplio conjunto de situaciones no es posible contar con modelos exactos, también conocidos como **modelos determinísticos**. En tales casos, las mediciones obtenidas presentan perturbaciones no controlables, lo que provoca variabilidad en los resultados aun cuando los experimentos se realicen bajo condiciones supuestamente idénticas. Esta variabilidad introduce una componente de azar o aleatoriedad en los resultados, dificultando la posibilidad de predecirlos con certeza.
+
+Por ejemplo, al determinar la resistencia a la ruptura de una barra de acero con una especificación determinada, es esperable que, al medir diez barras distintas, ninguna presente exactamente el mismo valor. Surge entonces la pregunta: ¿qué valor de resistencia debería ofrecerse como especificación del producto?, ¿la resistencia de la barra 1, 2, 3, …, 10?, ¿la mínima?, ¿la máxima? Una respuesta habitual podría ser la **resistencia media**, aunque este indicador no siempre resulta el más adecuado.
+
+En los campos de investigación donde no es posible utilizar modelos determinísticos, es natural aceptar que la predicción no será exacta. Sin embargo, la presencia de fenómenos aleatorios o estocásticos no implica ausencia total de regularidad. Por el contrario, estas mediciones suelen exhibir ciertos patrones, cuya identificación conduce al concepto de **ley de probabilidad**.
+
+El objetivo inicial de este módulo es repasar el concepto de probabilidad desde distintos enfoques.
+
+
+
+### Enfoque clásico
+
+El **enfoque clásico**, también denominado **apriorista**, se basa en la asignación de probabilidades a partir de los antecedentes teóricos de un experimento realizado de manera metódica, en el cual todos los resultados posibles son **igualmente probables**. Este tipo de experimentos se denomina **equiprobable** y es característico de los juegos de azar.
+
+Por ejemplo, en un juego de cartas, todas las cartas de un mazo bien barajado tienen la misma probabilidad de ser extraídas. Si se define el evento “extraer una carta roja”, la probabilidad está dada por el cociente entre el número de resultados favorables y el número total de resultados posibles.
+
+**Fórmula sugerida:**
+
+$$
+P(A) = \frac{\#\text{ resultados favorables}}{\#\text{ resultados posibles}} = \frac{\#R}{\#S}
+$$
+
+En este enfoque, las probabilidades se determinan **antes** de realizar el experimento, razón por la cual se denomina enfoque *a priori*.
+
+**APLICACIÓN 6.1**  
+En un mazo de 52 cartas bien barajadas que contiene 4 ases, la probabilidad de obtener un as en una extracción es:
+
+$$
+P(\text{As}) = \frac{4}{52} = \frac{1}{13}
+$$
+
+---
+
+### Enfoque frecuentista
+
+En el **enfoque frecuentista** o de **frecuencia relativa**, la probabilidad se determina a partir de la proporción de veces que ocurre un resultado favorable en un número elevado de observaciones o experimentos. No se asume equiprobabilidad entre los resultados.
+
+Dado que este enfoque se basa en la observación y recopilación de datos, también se denomina **enfoque empírico**. Las probabilidades no se asignan *a priori*, sino que se estiman a partir de la experiencia.
+
+**Fórmula sugerida:**
+
+$$
+P(A) \approx \frac{n_i}{n}
+$$
+
+donde $ n_i $ es el número de veces que ocurre el evento y $ n $ el número total de observaciones.
+
+**APLICACIÓN 6.2**  
+En una muestra de 10.000 adultos, 100 presentaron un problema dental específico durante el año anterior. La probabilidad estimada es:
+
+$$
+P(\text{Problema dental}) = \frac{100}{10\,000} = 0{,}01 = 1\%
+$$
+
+---
+
+### Enfoque bayesiano
+
+Tanto el enfoque clásico como el frecuentista producen probabilidades **objetivas**, en el sentido de que describen tasas de ocurrencia a largo plazo. En el **enfoque bayesiano**, en cambio, la probabilidad se interpreta como un **grado de creencia** o confianza subjetiva respecto a la ocurrencia de un evento.
+
+Debido a que esta probabilidad depende del juicio personal y de la información disponible, se habla de un enfoque **subjetivo**, ampliamente utilizado en el análisis bayesiano de decisiones.
+
+**APLICACIÓN 6.3**  
+Un inversionista decide comprar terrenos solo si la probabilidad de obtener una plusvalía de al menos 50% en cuatro años es mayor o igual a 0,90. Tras analizar información económica y de mercado, estima dicha probabilidad en 0,75. Dado que este valor es inferior al umbral requerido, la inversión no se realiza.
+
+---
+
+### Desarrollo axiomático de la probabilidad
+
+La probabilidad se fundamenta formalmente en la **Teoría de la Medida**, para lo cual se introducen las siguientes definiciones.
+
+**Definición 6.1 (Espacio muestral).**  
+El **espacio muestral**, denotado por $ \Omega $, es el conjunto de todos los posibles resultados de un experimento aleatorio.
+
+**Definición 6.2 (Evento).**  
+Un **evento** es cualquier subconjunto del espacio muestral $ \Omega $.
+
+El conjunto potencia $ 2^{\Omega} $ corresponde al conjunto de todos los subconjuntos de $ \Omega $. Un subconjunto $ \Gamma \subset 2^{\Omega} $ se denomina **sigma-álgebra** si cumple:
+
+1. $ \Omega \in \Gamma $
+2. Si $ A \in \Gamma $, entonces $ A^c \in \Gamma $
+3. Si $ \{A_n\}_{n=1}^{\infty} \subset \Gamma $, entonces  
+   $$
+   \bigcup_{n=1}^{\infty} A_n \in \Gamma
+   $$
+
+El par $ (\Omega, \Gamma) $ se denomina **espacio medible**. Una función $ P: \Gamma \to [0,1] $ es una **medida de probabilidad** si satisface:
+
+1. $ 0 \le P(A) \le 1 $, para todo $ A \in \Gamma $
+2. $ P(\Omega) = 1 $
+3. Si $ A_1, A_2, \dots \in \Gamma $ son disjuntos:
+   $$
+   P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i)
+   $$
+
+---
+
+### Técnicas de conteo
+
+#### Principio de multiplicación
+
+Si un procedimiento 1 puede realizarse de $ n_1 $ formas y un procedimiento 2 de $ n_2 $ formas, y ambos pueden realizarse secuencialmente, entonces el procedimiento conjunto puede realizarse de:
+
+$$
+n_1 \times n_2
+$$
+
+**Sugerencia de imagen (Figura 6.1):**  
+Diagrama en árbol ilustrando el principio multiplicativo.
+
+**APLICACIÓN 6.4**  
+En un proceso de manufactura con 4 controles que admiten 3, 4, 2 y 2 resultados posibles, respectivamente, el número total de combinaciones es:
+
+$$
+3 \times 4 \times 2 \times 2 = 48
+$$
+
+---
+
+#### Principio de adición
+
+Si un procedimiento 1 puede realizarse de $ n_1 $ formas y un procedimiento 2 de $ n_2 $ formas, y ambos no pueden ocurrir simultáneamente, entonces el número total de formas es:
+
+$$
+n_1 + n_2
+$$
+
+**Sugerencia de imagen (Figura 6.2):**  
+Esquema ilustrativo del principio aditivo.
+
+**APLICACIÓN 6.5**  
+Si existen 3 universidades tradicionales, 5 privadas y 4 centros técnicos, el número total de opciones es:
+
+$$
+3 + 5 + 4 = 12
+$$
+
+---
+
+### Factorial
+
+**Definición 6.3 (Factorial).**  
+Para $ n \in \mathbb{N} $:
+
+$$
+n! = n \times (n-1) \times (n-2) \times \cdots \times 1
+$$
+
+---
+
+### Permutaciones
+
+Cuando el orden importa, se utiliza el concepto de **permutación**.
+
+**Definición 6.4 (Permutación).**  
+El número de permutaciones de $ r $ elementos tomados de $ n $ es:
+
+$$
+P(n,r) = \frac{n!}{(n-r)!}
+$$
+
+**APLICACIÓN 6.6**  
+Para elegir presidente, secretario y tesorero de entre 10 candidatos:
+
+$$
+P(10,3) = \frac{10!}{7!} = 720
+$$
+
+---
+
+### Combinaciones
+
+Cuando el orden no importa, se utiliza la **combinatoria**.
+
+**Definición 6.5 (Combinatoria).**  
+
+$$
+\binom{n}{r} = \frac{n!}{r!(n-r)!}
+$$
+
+**APLICACIÓN 6.7**  
+Para formar un comité de 3 personas de un grupo de 10:
+
+$$
+\binom{10}{3} = 120
+$$
+
+---
+
+## Cálculo de Probabilidades
+
+En el enfoque clásico, la probabilidad de un evento se define como el cociente entre los casos favorables y los posibles.
+
+**Propiedades básicas:**
+
+$$
+0 \le P(A) \le 1
+$$
+
+$$
+P(A) + P(A^c) = 1
+$$
+
+---
+
+### Eventos mutuamente excluyentes
+
+Dos eventos son mutuamente excluyentes si no pueden ocurrir simultáneamente.
+
+**Regla de adición (eventos excluyentes):**
+
+$$
+P(A \cup B) = P(A) + P(B)
+$$
+
+---
+
+### Eventos no mutuamente excluyentes
+
+**Regla de adición general:**
+
+$$
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+$$
+
+---
+
+## Probabilidad Condicional y Eventos Independientes
+
+La **probabilidad condicional** se define como:
+
+$$
+P(B \mid A) = \frac{P(A \cap B)}{P(A)}
+$$
+
+Dos eventos son **independientes** si:
+
+$$
+P(B \mid A) = P(B)
+$$
+
+---
+
+### Regla multiplicativa
+
+Para dos eventos:
+
+$$
+P(A \cap B) = P(A) P(B \mid A)
+$$
+
+Para tres eventos:
+
+$$
+P(A \cap B \cap C) = P(A) P(B \mid A) P(C \mid A \cap B)
+$$
+
+---
+
+## Regla de Bayes
+
+La **regla de Bayes** permite actualizar probabilidades *a priori*:
+
+$$
+P(A \mid B) = \frac{P(A) P(B \mid A)}{P(A) P(B \mid A) + P(A^c) P(B \mid A^c)}
+$$
+
+---
+
+## Variables Aleatorias
+
+Una **variable aleatoria** es una función que asigna valores reales a los resultados de un experimento aleatorio.
+
+**Definición 6.6.**  
+Una variable aleatoria $ X $ es una función medible:
+
+$$
+X: \Omega \to \mathbb{R}
+$$
+
+---
+
+### Variables aleatorias discretas
+
+**Definición 6.7.**  
+Una variable aleatoria es discreta si su recorrido es numerable.
+
+---
+
+### Variables aleatorias continuas
+
+**Definición 6.8.**  
+Una variable aleatoria es continua si su recorrido es no numerable.
+
+---
+
+### Función de distribución acumulada
+
+**Definición 6.9.**
+
+$$
+F_X(x) = P(X \le x)
+$$
+
+---
+
+### Función de masa de probabilidad
+
+**Definición 6.10.**
+
+$$
+f_X(x) = P(X = x)
+$$
+
+y cumple:
+
+$$
+f_X(x) = F_X(x) - F_X(x-1)
+$$
+
+---
+
+### Función de densidad de probabilidad
+
+**Definición 6.11.**  
+Una función $ f_X(x) $ es densidad de probabilidad si:
+
+$$
+f_X(x) \ge 0, \quad \int_{-\infty}^{\infty} f_X(x)\,dx = 1
+$$
+
+**Sugerencia de imagen:**  
+Curva continua representando una función de densidad con área total igual a 1.
+
+---
+
+## Valor Esperado
+
+El **valor esperado** representa el promedio teórico de una variable aleatoria y constituye uno de los conceptos fundamentales de la teoría de probabilidad.
+
+markdown
+### Valor esperado de una variable aleatoria discreta
+
+Sea $ X $ una variable aleatoria discreta que toma los valores $ x_1, x_2, \dots, x_n $ con probabilidades asociadas $ p_1, p_2, \dots, p_n $, respectivamente. El **valor esperado** de $ X $, denotado por $ \mathbb{E}(X) $, se define como:
+
+$$
+\mathbb{E}(X) = \sum_{i=1}^{n} x_i \, p_i
+$$
+
+Este valor puede interpretarse como el promedio ponderado de los valores posibles de la variable, donde las ponderaciones corresponden a las probabilidades de ocurrencia.
+
+**APLICACIÓN 6.8**  
+Considérese una variable aleatoria $ X $ que representa el número de defectos en un producto, con la siguiente distribución:
+
+| $x_i$ | 0 | 1 | 2 | 3 |
+|------|---|---|---|---|
+| $p_i$ | 0,40 | 0,35 | 0,20 | 0,05 |
+
+El valor esperado es:
+
+$$
+\mathbb{E}(X) = 0(0{,}40) + 1(0{,}35) + 2(0{,}20) + 3(0{,}05) = 0{,}95
+$$
+
+---
+
+### Valor esperado de una variable aleatoria continua
+
+Sea $ X $ una variable aleatoria continua con función de densidad de probabilidad $ f_X(x) $. El valor esperado se define como:
+
+$$
+\mathbb{E}(X) = \int_{-\infty}^{\infty} x f_X(x)\,dx
+$$
+
+Este valor representa el centro de gravedad de la distribución.
+
+**Sugerencia de imagen:**  
+Curva de densidad continua con una línea vertical indicando el valor esperado.
+
+---
+
+### Propiedades del valor esperado
+
+Sean $ X $ y $ Y $ variables aleatorias y $ a, b \in \mathbb{R} $. El valor esperado cumple las siguientes propiedades:
+
+1. **Linealidad**  
+$$
+\mathbb{E}(aX + b) = a \mathbb{E}(X) + b
+$$
+
+2. **Suma de variables**  
+$$
+\mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y)
+$$
+
+Estas propiedades se mantienen aun cuando las variables no sean independientes.
+
+---
+
+## Varianza y Desviación Estándar
+
+La **varianza** mide la dispersión de los valores de una variable aleatoria respecto de su valor esperado.
+
+### Varianza de una variable aleatoria discreta
+
+Sea $ X $ una variable aleatoria discreta con valor esperado $ \mu = \mathbb{E}(X) $. La varianza de $ X $, denotada por $ \operatorname{Var}(X) $, se define como:
+
+$$
+\operatorname{Var}(X) = \mathbb{E}\big[(X - \mu)^2\big]
+$$
+
+Una forma equivalente y computacionalmente más conveniente es:
+
+$$
+\operatorname{Var}(X) = \mathbb{E}(X^2) - \mu^2
+$$
+
+donde:
+
+$$
+\mathbb{E}(X^2) = \sum_{i=1}^{n} x_i^2 p_i
+$$
+
+---
+
+### Varianza de una variable aleatoria continua
+
+Si $ X $ es una variable aleatoria continua con densidad $ f_X(x) $, entonces:
+
+$$
+\operatorname{Var}(X) = \int_{-\infty}^{\infty} (x - \mu)^2 f_X(x)\,dx
+$$
+
+y de manera equivalente:
+
+$$
+\operatorname{Var}(X) = \int_{-\infty}^{\infty} x^2 f_X(x)\,dx - \mu^2
+$$
+
+---
+
+### Desviación estándar
+
+La **desviación estándar** se define como la raíz cuadrada de la varianza:
+
+$$
+\sigma = \sqrt{\operatorname{Var}(X)}
+$$
+
+Esta medida tiene la ventaja de expresarse en las mismas unidades que la variable original.
+
+---
+
+### Propiedades de la varianza
+
+Sean $ X $ una variable aleatoria y $ a, b \in \mathbb{R} $. Entonces:
+
+1.  
+$$
+\operatorname{Var}(aX + b) = a^2 \operatorname{Var}(X)
+$$
+
+2. Si $ X $ e $ Y $ son independientes:
+$$
+\operatorname{Var}(X + Y) = \operatorname{Var}(X) + \operatorname{Var}(Y)
+$$
+
+---
+
+## Distribuciones de Probabilidad Discretas
+
+Las distribuciones de probabilidad discretas describen el comportamiento de variables aleatorias que toman un número finito o numerable de valores.
+
+---
+
+### Distribución Bernoulli
+
+Una variable aleatoria $ X $ sigue una **distribución Bernoulli** si solo puede tomar dos valores:
+
+$$
+X =
+\begin{cases}
+1 & \text{con probabilidad } p \\
+0 & \text{con probabilidad } 1-p
+\end{cases}
+$$
+
+La función de masa de probabilidad es:
+
+$$
+P(X = x) = p^x (1-p)^{1-x}, \quad x \in \{0,1\}
+$$
+
+**Valor esperado y varianza:**
+
+$$
+\mathbb{E}(X) = p, \quad \operatorname{Var}(X) = p(1-p)
+$$
+
+---
+
+### Distribución Binomial
+
+Una variable aleatoria $ X $ sigue una **distribución binomial** con parámetros $ n $ y $ p $ si representa el número de éxitos en $ n $ ensayos de Bernoulli independientes.
+
+La función de probabilidad es:
+
+$$
+P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0,1,\dots,n
+$$
+
+**Valor esperado y varianza:**
+
+$$
+\mathbb{E}(X) = np, \quad \operatorname{Var}(X) = np(1-p)
+$$
+
+**Sugerencia de imagen:**  
+Gráfico de barras de una distribución binomial para distintos valores de $ p $.
+
+---
+
+### Distribución Poisson
+
+Una variable aleatoria $ X $ sigue una **distribución Poisson** con parámetro $ \lambda > 0 $ si:
+
+$$
+P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \quad k = 0,1,2,\dots
+$$
+
+Esta distribución se utiliza para modelar el número de ocurrencias de un evento en un intervalo fijo de tiempo o espacio.
+
+**Valor esperado y varianza:**
+
+$$
+\mathbb{E}(X) = \lambda, \quad \operatorname{Var}(X) = \lambda
+$$
+
+---
+
+## Distribuciones de Probabilidad Continuas
+
+Las distribuciones continuas describen variables aleatorias cuyos valores pertenecen a intervalos de la recta real.
+
+---
+
+### Distribución Uniforme Continua
+
+Una variable aleatoria $ X $ tiene distribución uniforme en el intervalo $ [a,b] $ si su densidad es:
+
+$$
+f_X(x) =
+\begin{cases}
+\frac{1}{b-a}, & a \le x \le b \\
+0, & \text{en otro caso}
+\end{cases}
+$$
+
+**Valor esperado y varianza:**
+
+$$
+\mathbb{E}(X) = \frac{a+b}{2}, \quad
+\operatorname{Var}(X) = \frac{(b-a)^2}{12}
+$$
+
+---
+
+### Distribución Normal
+
+Una variable aleatoria $ X $ sigue una **distribución normal** con media $ \mu $ y varianza $ \sigma^2 $ si su función de densidad es:
+
+$$
+f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)
+$$
+
+Esta distribución es ampliamente utilizada debido al **Teorema Central del Límite**.
+
+**Sugerencia de imagen:**  
+Curva normal con media $ \mu $ y desviación estándar $ \sigma $.
+
+---
+
+## Teorema Central del Límite
+
+El **Teorema Central del Límite** establece que, bajo condiciones generales, la suma (o promedio) de un número grande de variables aleatorias independientes e idénticamente distribuidas converge en distribución a una normal, independientemente de la distribución original.
+
+Formalmente, si $ X_1, X_2, \dots, X_n $ son i.i.d. con media $ \mu $ y varianza $ \sigma^2 $, entonces:
+
+$$
+\frac{\sum_{i=1}^{n} X_i - n\mu}{\sigma \sqrt{n}}
+\;\xrightarrow{d}\; \mathcal{N}(0,1)
+$$
+
+Este resultado justifica el uso extensivo de la distribución normal en estadística aplicada.
+
+
+
+##  Aproximaciones de Distribuciones
+
+En la práctica, el cálculo exacto de probabilidades puede resultar complejo cuando el tamaño de la muestra es grande o cuando las expresiones analíticas son difíciles de manejar. En estos casos, es habitual recurrir a **aproximaciones de distribuciones**, las cuales permiten simplificar los cálculos manteniendo un buen nivel de precisión.
+
+---
+
+### Aproximación normal a la binomial
+
+Cuando una variable aleatoria $ X $ sigue una distribución binomial con parámetros $ n $ y $ p $, es posible aproximarla mediante una distribución normal siempre que se cumplan las siguientes condiciones:
+
+$$
+np \ge 5 \quad \text{y} \quad n(1-p) \ge 5
+$$
+
+Bajo estas condiciones, se tiene:
+
+$$
+X \sim \text{Binomial}(n,p)
+\quad \approx \quad
+Y \sim \mathcal{N}(np,\, np(1-p))
+$$
+
+Para mejorar la aproximación, se utiliza la **corrección por continuidad**, evaluando probabilidades del tipo:
+
+$$
+P(a \le X \le b) \approx P(a - 0{,}5 \le Y \le b + 0{,}5)
+$$
+
+**Sugerencia de imagen:**  
+Superposición de un histograma binomial con la curva normal aproximada.
+
+---
+
+### Aproximación de Poisson a la binomial
+
+Cuando $ n $ es grande y $ p $ es pequeño, de modo que $ \lambda = np $ se mantiene constante, la distribución binomial puede aproximarse mediante una distribución Poisson:
+
+$$
+X \sim \text{Binomial}(n,p)
+\quad \approx \quad
+\text{Poisson}(\lambda = np)
+$$
+
+Esta aproximación es especialmente útil en problemas de conteo de eventos raros.
+
+---
+
+## Funciones de Transformación de Variables Aleatorias
+
+En muchos problemas prácticos, el interés no está directamente en la variable aleatoria original, sino en una **transformación** de ella.
+
+Sea $ Y = g(X) $, donde $ X $ es una variable aleatoria.
+
+---
+
+### Transformación de variables discretas
+
+Si $ X $ es discreta y toma valores $ x_1, x_2, \dots $, entonces la distribución de $ Y $ se obtiene calculando:
+
+$$
+P(Y = y) = \sum_{x_i : g(x_i) = y} P(X = x_i)
+$$
+
+---
+
+### Transformación de variables continuas
+
+Si $ X $ es continua y $ Y = g(X) $ es una función monótona, entonces la densidad de $ Y $ se obtiene mediante:
+
+$$
+f_Y(y) = f_X\big(g^{-1}(y)\big)\left| \frac{d}{dy} g^{-1}(y) \right|
+$$
+
+**Sugerencia de imagen:**  
+Transformación gráfica de una densidad original a una nueva densidad mediante cambio de variable.
+
+---
+
+## Distribución de la Media Muestral
+
+Sea $ X_1, X_2, \dots, X_n $ una muestra aleatoria de una población con media $ \mu $ y varianza $ \sigma^2 $. La **media muestral** se define como:
+
+$$
+\bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+$$
+
+Las propiedades de la media muestral son:
+
+$$
+\mathbb{E}(\bar{X}) = \mu
+$$
+
+$$
+\operatorname{Var}(\bar{X}) = \frac{\sigma^2}{n}
+$$
+
+En virtud del Teorema Central del Límite, para tamaños muestrales grandes se cumple:
+
+$$
+\bar{X} \approx \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
+$$
+
+---
+
+## Distribución de la Varianza Muestral
+
+La **varianza muestral** se define como:
+
+$$
+S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
+$$
+
+Si la población original es normal, entonces la variable:
+
+$$
+\frac{(n-1)S^2}{\sigma^2}
+$$
+
+sigue una **distribución chi-cuadrado** con $ n-1 $ grados de libertad.
+
+---
+
+## Distribución t de Student
+
+Cuando la varianza poblacional $ \sigma^2 $ es desconocida y el tamaño de muestra es pequeño, se utiliza la **distribución t de Student**.
+
+La variable:
+
+$$
+T = \frac{\bar{X} - \mu}{S/\sqrt{n}}
+$$
+
+sigue una distribución t con $ n-1 $ grados de libertad.
+
+**Sugerencia de imagen:**  
+Comparación gráfica entre la distribución normal estándar y distribuciones t con distintos grados de libertad.
+
+---
+
+## Distribución F de Fisher–Snedecor
+
+La **distribución F** surge al considerar el cociente de dos variables chi-cuadrado independientes, cada una dividida por sus respectivos grados de libertad.
+
+Si:
+
+$$
+U_1 \sim \chi^2(\nu_1), \quad U_2 \sim \chi^2(\nu_2)
+$$
+
+entonces:
+
+$$
+F = \frac{U_1/\nu_1}{U_2/\nu_2}
+$$
+
+sigue una distribución F con $ (\nu_1, \nu_2) $ grados de libertad.
+
+Esta distribución se utiliza principalmente en el análisis de varianzas (ANOVA).
+

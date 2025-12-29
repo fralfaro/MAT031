@@ -1,0 +1,58 @@
+---
+title: "Home"
+format:
+  html:
+    css: css/neoteroi.css
+    toc: false
+---
+
+# Bienvenidos a MAT031!
+
+## Contenidos del Curso
+
+
+```{=html}
+<div class="nt-cards nt-grid cols-3">
+
+  <a class="nt-card" href="material/modulo_01/univariado.qmd">
+    <div class="nt-card-image">
+      <img src="images/icon1.png" alt="Estadística descriptiva">
+    </div>
+    <div class="nt-card-body">
+      <h3>Estadística Descriptiva</h3>
+      <p>
+        Organización, resumen y visualización de datos mediante
+        tablas, gráficos y medidas numéricas descriptivas.
+      </p>
+    </div>
+  </a>
+
+  <a class="nt-card" href="material/modulo_02/probabilidad.qmd">
+    <div class="nt-card-image">
+      <img src="images/icon2.png" alt="Probabilidad">
+    </div>
+    <div class="nt-card-body">
+      <h3>Probabilidad</h3>
+      <p>
+        Modelación de la incertidumbre a través de experimentos
+        aleatorios, variables aleatorias y distribuciones clásicas.
+      </p>
+    </div>
+  </a>
+
+  <a class="nt-card" href="material/modulo_03/intervalos.qmd">
+    <div class="nt-card-image">
+      <img src="images/icon3.png" alt="Inferencia estadística">
+    </div>
+    <div class="nt-card-body">
+      <h3>Inferencia Estadística</h3>
+      <p>
+        Estimación de parámetros, intervalos de confianza y pruebas
+        de hipótesis para apoyar la toma de decisiones.
+      </p>
+    </div>
+  </a>
+
+</div>
+
+```
