@@ -1,0 +1,2904 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MAT031: Probabilidad y Estadística - Organización de Datos Univariados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../material/modulo_01/multivariado.html" rel="next">
+<link href="../../material/modulo_01/intro.html" rel="prev">
+<link href="../../images/icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../material/modulo_01/univariado.html">Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../../material/modulo_01/univariado.html"><span class="chapter-title">Organización de Datos Univariados</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">MAT031: Probabilidad y Estadística</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Seth-Nut/ws-usm_uchile-2025" title="Ejecutar el código" class="quarto-navigation-tool px-1" aria-label="Ejecutar el código"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_01/intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Estadística descriptiva</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_01/univariado.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Organización de Datos Univariados</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_01/multivariado.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Organización de Datos Multivariados</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Teoría de Probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_02/probabilidad.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Elementos de Probabilidad</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Inferencia estadística</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_03/intervalos.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Inferencia Estadística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_03/tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prueba de Hipótesis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#tablas-de-frecuencia" id="toc-tablas-de-frecuencia" class="nav-link active" data-scroll-target="#tablas-de-frecuencia">Tablas de frecuencia</a>
+  <ul class="collapse">
+  <li><a href="#resumir-datos-para-facilitar-su-interpretación" id="toc-resumir-datos-para-facilitar-su-interpretación" class="nav-link" data-scroll-target="#resumir-datos-para-facilitar-su-interpretación">Resumir datos para facilitar su interpretación</a></li>
+  <li><a href="#construcción-de-la-tabla-de-frecuencia" id="toc-construcción-de-la-tabla-de-frecuencia" class="nav-link" data-scroll-target="#construcción-de-la-tabla-de-frecuencia">Construcción de la Tabla de Frecuencia</a></li>
+  <li><a href="#diagramas-de-tallo-y-hoja" id="toc-diagramas-de-tallo-y-hoja" class="nav-link" data-scroll-target="#diagramas-de-tallo-y-hoja">Diagramas de Tallo y Hoja</a></li>
+  <li><a href="#gráficos" id="toc-gráficos" class="nav-link" data-scroll-target="#gráficos">Gráficos</a></li>
+  </ul></li>
+  <li><a href="#medidas-de-desempeño" id="toc-medidas-de-desempeño" class="nav-link" data-scroll-target="#medidas-de-desempeño">Medidas de Desempeño</a>
+  <ul class="collapse">
+  <li><a href="#medidas-de-posición" id="toc-medidas-de-posición" class="nav-link" data-scroll-target="#medidas-de-posición">Medidas de Posición</a></li>
+  <li><a href="#medidas-de-variabilidad" id="toc-medidas-de-variabilidad" class="nav-link" data-scroll-target="#medidas-de-variabilidad">Medidas de Variabilidad</a></li>
+  <li><a href="#medidas-de-forma" id="toc-medidas-de-forma" class="nav-link" data-scroll-target="#medidas-de-forma">Medidas de Forma</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../material/modulo_01/univariado.html">Estadística descriptiva</a></li><li class="breadcrumb-item"><a href="../../material/modulo_01/univariado.html"><span class="chapter-title">Organización de Datos Univariados</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Organización de Datos Univariados</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>La estadística descriptiva busca <strong>sintetizar y organizar conjuntos de datos</strong> para identificar patrones y características relevantes del fenómeno estudiado. Mientras una observación individual aporta información limitada, es el análisis conjunto el que permite comprender el comportamiento global de los datos.</p>
+<p>Este proceso se apoya en dos enfoques complementarios: el <strong>análisis exploratorio de datos</strong>, basado en tablas y gráficos para un diagnóstico inicial, y el uso de <strong>medidas descriptivas</strong>, que cuantifican propiedades clave como tendencia central y dispersión.</p>
+<p>La <strong>organización de los datos</strong> es un paso esencial para facilitar el análisis. Los datos pueden presentarse como <strong>no agrupados</strong> o <strong>agrupados</strong>, siendo las <strong>tablas de frecuencia</strong> una herramienta fundamental, especialmente cuando el volumen de datos es grande o se trabaja con variables continuas.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_011.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 1:</strong> Flowchart del analisis de datos univariados.
+  </figcaption>
+</figure>
+<section id="tablas-de-frecuencia" class="level2">
+<h2 class="anchored" data-anchor-id="tablas-de-frecuencia">Tablas de frecuencia</h2>
+<section id="resumir-datos-para-facilitar-su-interpretación" class="level3">
+<h3 class="anchored" data-anchor-id="resumir-datos-para-facilitar-su-interpretación">Resumir datos para facilitar su interpretación</h3>
+<p>Las <strong>tablas de frecuencia</strong> permiten organizar un conjunto de datos asignando a cada categoría o valor el número de veces que aparece en la muestra. Son especialmente útiles en estadística descriptiva, ya que transforman datos dispersos en información interpretable.</p>
+<p>Cuando el número de categorías es muy grande, la tabla pierde su capacidad de síntesis y deja de ser un buen resumen.</p>
+<p>Sea <span class="math inline">\(C_1, C_2, \dots, C_k\)</span> el conjunto de <strong>clases</strong> (categorías) observadas en la muestra.</p>
+<ul>
+<li><p><strong>Frecuencia absoluta</strong> <span class="math inline">\((n_i)\)</span>: número de observaciones que pertenecen a la clase <span class="math inline">\(C_i\)</span>.</p>
+<p><span class="math display">\[
+\sum_{i=1}^{k} n_i = n
+\]</span></p></li>
+<li><p><strong>Frecuencia relativa</strong> <span class="math inline">\((f_i)\)</span>: proporción de observaciones de la clase <span class="math inline">\(C_i\)</span> respecto del total.</p>
+<p><span class="math display">\[
+f_i = \frac{n_i}{n}, \qquad \sum_{i=1}^{k} f_i = 1
+\]</span></p></li>
+</ul>
+<p>La frecuencia absoluta indica <strong>cuántas veces ocurre</strong> una categoría; la frecuencia relativa permite <strong>comparar categorías</strong> en términos proporcionales.</p>
+<p><strong>Ejemplo.</strong> Suponga que se desea determinar la frecuencia de las facturas que llegan a una empresa como resultado de trabajos realizados por contratistas de obras menores. Los datos disponibles corresponden a las siguientes empresas:</p>
+<p><strong>Emis Ltda., Baker &amp; Jones, Smith y CIA., Brown e Hijos.</strong></p>
+<p>Las facturas recibidas se registran a continuación:</p>
+<pre class="text"><code>Emis Ltda.      Baker &amp; Jones     Smith y CIA.     Emis Ltda.
+Emis Ltda.      Baker &amp; Jones     Baker &amp; Jones    Smith y CIA.
+Brown e Hijos   Emis Ltda.        Smith y CIA.     Baker &amp; Jones
+Emis Ltda.      Baker &amp; Jones     Smith y CIA.     Brown e Hijos
+Baker &amp; Jones   Smith y CIA.      Brown e Hijos    Baker &amp; Jones
+Baker &amp; Jones   Emis Ltda.        Baker &amp; Jones    Emis Ltda.
+Smith y CIA.    Emis Ltda.        Baker &amp; Jones    Emis Ltda.
+Brown e Hijos   Emis Ltda.        Emis Ltda.       Emis Ltda.</code></pre>
+<p>A partir de estos registros se obtiene la siguiente tabla de frecuencias:</p>
+<p><strong>Tabla 4.1. Frecuencias de facturas entregadas por empresas contratistas</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Empresa</th>
+<th>Frecuencia absoluta</th>
+<th>Frecuencia relativa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Baker &amp; Jones</td>
+<td>10</td>
+<td>31,25 %</td>
+</tr>
+<tr class="even">
+<td>Brown e Hijos</td>
+<td>4</td>
+<td>12,50 %</td>
+</tr>
+<tr class="odd">
+<td>Emis Ltda.</td>
+<td>12</td>
+<td>37,50 %</td>
+</tr>
+<tr class="even">
+<td>Smith y CIA.</td>
+<td>6</td>
+<td>18,75 %</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>32</strong></td>
+<td><strong>100 %</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled" title="Código en R">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Código en R
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector con las empresas que emitieron las facturas</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>facturas <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Emis Ltda."</span>, <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Smith y CIA."</span>, <span class="st">"Emis Ltda."</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Emis Ltda."</span>, <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Smith y CIA."</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Brown e Hijos"</span>, <span class="st">"Emis Ltda."</span>, <span class="st">"Smith y CIA."</span>, <span class="st">"Baker &amp; Jones"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Emis Ltda."</span>, <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Smith y CIA."</span>, <span class="st">"Brown e Hijos"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Smith y CIA."</span>, <span class="st">"Brown e Hijos"</span>, <span class="st">"Baker &amp; Jones"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Emis Ltda."</span>, <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Emis Ltda."</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Smith y CIA."</span>, <span class="st">"Emis Ltda."</span>, <span class="st">"Baker &amp; Jones"</span>, <span class="st">"Emis Ltda."</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Brown e Hijos"</span>, <span class="st">"Emis Ltda."</span>, <span class="st">"Emis Ltda."</span>, <span class="st">"Emis Ltda."</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Frecuencia absoluta</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>freq_abs <span class="ot">&lt;-</span> <span class="fu">table</span>(facturas)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Frecuencia relativa</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>freq_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(freq_abs)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla final de frecuencias</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>tabla_frecuencias <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Empresa =</span> <span class="fu">names</span>(freq_abs),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">f =</span> <span class="fu">as.vector</span>(freq_abs),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">fr =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">as.vector</span>(freq_rel), <span class="dv">2</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>tabla_frecuencias</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Empresa  f    fr
+1 Baker &amp; Jones 10 31.25
+2 Brown e Hijos  4 12.50
+3    Emis Ltda. 12 37.50
+4  Smith y CIA.  6 18.75</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Las frecuencias absoluta y relativa permiten resumir datos en cualquier escala de medición.<br>
+Cuando los datos están al menos en <strong>escala ordinal</strong>, es posible definir <strong>frecuencias acumuladas</strong>, que incorporan la noción de orden.</p>
+<ul>
+<li><p><strong>Frecuencia absoluta acumulada</strong> <span class="math inline">\((N_i)\)</span>: número total de observaciones que pertenecen a las clases<br>
+<span class="math inline">\(C_1, C_2, \dots, C_i\)</span>.</p>
+<p><span class="math display">\[
+N_i = \sum_{j=1}^{i} n_j,
+\qquad i = 1, 2, \dots, k
+\]</span></p>
+<p>En particular: <span class="math display">\[
+N_k = \sum_{j=1}^{k} n_j = n
+\]</span></p></li>
+<li><p><strong>Frecuencia relativa acumulada</strong> <span class="math inline">\((F_i)\)</span>: proporción de observaciones que pertenecen a las clases<br>
+<span class="math inline">\(C_1, C_2, \dots, C_i\)</span> respecto del total de la muestra.</p>
+<p><span class="math display">\[
+F_i = \sum_{j=1}^{i} f_j,
+\qquad i = 1, 2, \dots, k
+\]</span></p>
+<p>En particular: <span class="math display">\[
+F_k = \sum_{j=1}^{k} f_j = 1
+\]</span></p></li>
+</ul>
+<p>Las frecuencias acumuladas permiten responder preguntas del tipo</p>
+<blockquote class="blockquote">
+<p><em>“¿cuántos (o qué proporción) de los datos no supera cierta categoría?”</em></p>
+</blockquote>
+<p><strong>Ejemplo</strong>: En un conjunto de clientes, se desea determinar la clasificación según el cumplimiento en el pago. Los clientes se clasifican en cuatro categorías: Malos (M), Regulares (R), Buenos (B) y Excelentes (E).</p>
+<p>Los datos observados son los siguientes:</p>
+<pre class="text"><code>B R B E E E M B E R
+R M M R R M R B B B
+B B E B B B E B E R
+E M B B E B B B B B
+M R M B B B B E M R</code></pre>
+<p>A partir de estos datos se obtiene la siguiente tabla de frecuencias:</p>
+<p><strong>Tabla 4.2. Clasificación de clientes por su cumplimiento en el pago</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 20%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Clasificación</th>
+<th>Frecuencia absoluta</th>
+<th>Frecuencia relativa</th>
+<th>Frecuencia acumulada</th>
+<th>Frecuencia relativa acumulada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Malo</td>
+<td>8</td>
+<td>16 %</td>
+<td>8</td>
+<td>16 %</td>
+</tr>
+<tr class="even">
+<td>Regular</td>
+<td>9</td>
+<td>18 %</td>
+<td>17</td>
+<td>34 %</td>
+</tr>
+<tr class="odd">
+<td>Bueno</td>
+<td>23</td>
+<td>46 %</td>
+<td>40</td>
+<td>80 %</td>
+</tr>
+<tr class="even">
+<td>Excelente</td>
+<td>10</td>
+<td>20 %</td>
+<td>50</td>
+<td>100 %</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>50</strong></td>
+<td><strong>100 %</strong></td>
+<td><strong>50</strong></td>
+<td><strong>100 %</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled" title="Código en R">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Código en R
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector con la clasificación de los clientes</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>clientes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B"</span>,<span class="st">"R"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"E"</span>,<span class="st">"E"</span>,<span class="st">"M"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"R"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"R"</span>,<span class="st">"M"</span>,<span class="st">"M"</span>,<span class="st">"R"</span>,<span class="st">"R"</span>,<span class="st">"M"</span>,<span class="st">"R"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"R"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"E"</span>,<span class="st">"M"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"M"</span>,<span class="st">"R"</span>,<span class="st">"M"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"B"</span>,<span class="st">"E"</span>,<span class="st">"M"</span>,<span class="st">"R"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Nombres completos de las categorías</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>niveles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"M"</span> <span class="ot">=</span> <span class="st">"Malo"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">"R"</span> <span class="ot">=</span> <span class="st">"Regular"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>             <span class="st">"B"</span> <span class="ot">=</span> <span class="st">"Bueno"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>             <span class="st">"E"</span> <span class="ot">=</span> <span class="st">"Excelente"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>clientes <span class="ot">&lt;-</span> <span class="fu">factor</span>(clientes, <span class="at">levels =</span> <span class="fu">names</span>(niveles), <span class="at">labels =</span> niveles)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Frecuencias absolutas</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>freq_abs <span class="ot">&lt;-</span> <span class="fu">table</span>(clientes)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Frecuencias relativas</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>freq_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(freq_abs)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Frecuencias acumuladas</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>freq_abs_acum <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(freq_abs)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>freq_rel_acum <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(freq_rel)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla final</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>tabla_4_2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">Clase =</span> <span class="fu">names</span>(freq_abs),</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">f =</span> <span class="fu">as.vector</span>(freq_abs),</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">fr =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">as.vector</span>(freq_rel), <span class="dv">0</span>),</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">F =</span> <span class="fu">as.vector</span>(freq_abs_acum),</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">Fr =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">as.vector</span>(freq_rel_acum), <span class="dv">0</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>tabla_4_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Clase  f fr  F  Fr
+1      Malo  8 16  8  16
+2   Regular  9 18 17  34
+3     Bueno 23 46 40  80
+4 Excelente 10 20 50 100</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Ejemplo</strong>: En un conjunto de clientes, se desea analizar el <strong>número de veces que se han atrasado en el pago de su cuenta</strong> durante un período determinado.</p>
+<p>Los datos observados son los siguientes:</p>
+<pre class="text"><code>0 0 2 4 4 7 0 1 4 0 0 0 0 0 0
+0 0 0 2 0 0 0 4 1 1 0 7 3 8 0
+7 0 3 3 7 1 0 3 0 3 0 0 0 0 1
+2 0 8 0 0 0 4 0 0 3 2 3 3 0 0</code></pre>
+<p>Cada valor representa el <strong>número de atrasos</strong> registrados para un cliente. A partir de estos datos se obtiene la siguiente tabla de frecuencias:</p>
+<p><strong>Tabla 4.3. Número de veces que un cliente se ha atrasado en el pago de su cuenta</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 22%">
+<col style="width: 19%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Número de atrasos</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia relativa (%)</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+<th style="text-align: right;">Frecuencia acumulada (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">53.4</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">53.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">61.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">68.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">13.3</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">81.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">90.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">90.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">90.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">96.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+</tbody>
+</table>
+<p>En variables continuas, la organización de datos es un poco más compleja, se dividen los datos en k grupos o segmentos disjuntos, como se muestra Figura 2. Estos grupos representan las clases y se determina la frecuencia de datos asociado a cada grupo, conformando una <em>tabla de frecuencia agrupada</em>.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_02.png" width="700px" class="figure-img">
+  <figcaption>
+    <strong>Figura 2:</strong>  Segmentación en grupos de datos continuos.
+  </figcaption>
+</figure>
+<p>En este tipo de datos las clases están compuestas por intervalos, luego es necesario buscar un representante de la frecuencia asociada a este intervalo, el cual se conoce como <em>marca de clase</em>. Es común utilizar como marca de clase al valor medio del segmento (intervalo).</p>
+</section>
+<section id="construcción-de-la-tabla-de-frecuencia" class="level3">
+<h3 class="anchored" data-anchor-id="construcción-de-la-tabla-de-frecuencia">Construcción de la Tabla de Frecuencia</h3>
+<p>En la construcción de una <strong>tabla de frecuencias</strong>, el primer paso consiste en determinar el <strong>número de clases</strong> o intervalos a utilizar. Una regla ampliamente empleada como primera aproximación es la <strong>regla de Sturges</strong>.</p>
+<p><strong>Regla de Sturges</strong> El número de clases se define como: <span class="math display">\[
+k = 3.3 \log(n) + 1,
+\]</span> donde <span class="math inline">\(n\)</span> corresponde al número total de observaciones. Se recomienda utilizar un <strong>número impar de clases</strong> por razones prácticas que se explicarán más adelante.</p>
+<p><strong>Amplitud de clase</strong></p>
+<p>Para determinar la <strong>amplitud</strong> <span class="math inline">\(a\)</span> de cada clase, se calcula previamente el <strong>rango de los datos</strong>: <span class="math display">\[
+R_D = \max{x_i} - \min{x_i}.
+\]</span></p>
+<p>Además, se debe identificar la <strong>unidad mínima de conteo</strong> <span class="math inline">\(u\)</span> de los datos. Con esto, la amplitud se obtiene mediante: <span class="math display">\[
+a = \frac{R_D + u}{k}.
+\]</span></p>
+<p><strong>Rango de la tabla</strong></p>
+<p>Una vez determinada la amplitud <span class="math inline">\(a\)</span> (idealmente con un decimal adicional respecto de los datos originales), se define el <strong>rango de la tabla</strong> como: <span class="math display">\[
+R_T = k \cdot a.
+\]</span></p>
+<p>La inclusión de <span class="math inline">\(u\)</span> en el cálculo de <span class="math inline">\(a\)</span> no siempre garantiza que <span class="math inline">\(R_T &gt; R_D\)</span>, por lo que puede ser necesario realizar un <strong>ajuste conveniente</strong> en el valor de la amplitud.</p>
+<p><strong>Límites de las clases</strong></p>
+<p>Para construir los <strong>límites teóricos de las clases</strong>, se comienza con el límite inferior de la primera clase: <span class="math display">\[
+LI_1 = \min{x_i} - \frac{D}{2},
+\]</span> donde <span class="math display">\[
+D = R_T - R_D.
+\]</span> Si el último dígito de <span class="math inline">\(D\)</span> no es par, se realiza un ajuste apropiado.</p>
+<p>El límite superior de la primera clase se obtiene sumando la amplitud: <span class="math display">\[
+LS_1 = LI_1 + a.
+\]</span></p>
+<p>Este límite se considera <strong>abierto para la primera clase</strong> y <strong>cerrado para la siguiente</strong>, de modo que: <span class="math display">\[
+LI_2 = LS_1.
+\]</span></p>
+<p>Los límites de las clases restantes se obtienen sumando sucesivamente la amplitud hasta completar las <span class="math inline">\(k\)</span> clases.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_03.png" width="700px" class="figure-img">
+  <figcaption>
+    <strong>Figura 3:</strong> Límites de las clases.
+  </figcaption>
+</figure>
+<p><strong>Tabla 4.4. Tabla de frecuencia genérica</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 19%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Clases</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia relativa</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+<th style="text-align: right;">Frecuencia acumulada relativa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\([LI_1, LS_1)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(n_1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(f_1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(N_1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(F_1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\([LI_2, LS_2)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(n_2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(f_2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(N_2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(F_2\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\([LI_3, LS_3)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(n_3\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(f_3\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(N_3\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(F_3\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\([LI_k, LS_k)\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(n_k\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(f_k\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(N_k\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(F_k\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplo</strong>: Supóngase que los datos corresponden a los <strong>tiempos de espera (en segundos)</strong> registrados en una línea telefónica de atención al cliente durante un período de observación.</p>
+<p>Los datos observados son los siguientes:</p>
+<pre class="text"><code>47 43 33 52 70 24 55 48 52 52 49 47
+34 48 42 57 65 45 48 63 54 54 46 55
+55 65 36 47 66 51 39 11 44 44 45 44
+53 45 44 43 56 59 56 54 23 23 32 49
+55 49 57 57 55 46 42 52 56 56 42 53
+61 46 53 57 54 49 49 45 36 36 47 52
+25 66 44 54 52 41 54 54 57 57 45 46
+42 54 70 41 49 51 44 52 58 58 44
+55 70 34 68 29 36 52 32 45 45 52
+52 57 41 39 42 37 43 35 38 57 69</code></pre>
+<p>A partir de estos datos se procede a construir una <strong>tabla de frecuencias agrupadas</strong>, siguiendo los pasos habituales.</p>
+<p><strong>Número de clases</strong> Utilizando la regla de Sturges: <span class="math display">\[
+k = 1 + 3.322 \log(n) = 1 + 3.322 \log(117) \approx 8.
+\]</span> Se adopta el <strong>número impar más cercano</strong>, por lo que se utilizan: <span class="math display">\[
+k = 7 \text{ clases}.
+\]</span></p>
+<p><strong>Rango de la muestra</strong> <span class="math display">\[
+R_M = \max{x_i} - \min{x_i} = 70 - 11 = 59.
+\]</span></p>
+<p><strong>Amplitud de clase</strong> Considerando una unidad mínima de conteo igual a 1: <span class="math display">\[
+a = \frac{R_M + 1}{k} = \frac{59 + 1}{7} \approx 8.6.
+\]</span></p>
+<p><strong>Rango de la tabla</strong> <span class="math display">\[
+R_T = k \cdot a = 7 \cdot 8.6 \approx 60.2.
+\]</span></p>
+<p>La diferencia entre ambos rangos es: <span class="math display">\[
+D = R_T - R_M = 60.2 - 59 \approx 1.2.
+\]</span></p>
+<p><strong>Límites de la primera clase</strong> El límite inferior de la primera clase se define como: <span class="math display">\[
+LI_1 = \min{x_i} - \frac{D}{2} = 11 - 0.6 = 10.4.
+\]</span></p>
+<p>El límite superior correspondiente es: <span class="math display">\[
+LS_1 = LI_1 + a = 10.4 + 8.6 = 19.0.
+\]</span></p>
+<p>Los límites de las clases restantes se obtienen sumando sucesivamente la amplitud.</p>
+<p><strong>Tabla 4.5. Tiempo de espera antes de ser atendido</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 17%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tiempos (seg.)</th>
+<th style="text-align: right;">Marca de clase</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia relativa (%)</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+<th style="text-align: right;">Frecuencia acumulada (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([10.4, 19.0)\)</span></td>
+<td style="text-align: right;">14.7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\([19.0, 27.6)\)</span></td>
+<td style="text-align: right;">23.3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.42</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([27.6, 36.2)\)</span></td>
+<td style="text-align: right;">31.9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">9.40</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">13.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\([36.2, 44.8)\)</span></td>
+<td style="text-align: right;">40.5</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">18.80</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">32.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([44.8, 53.4)\)</span></td>
+<td style="text-align: right;">49.1</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">33.33</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">65.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\([53.4, 62.0)\)</span></td>
+<td style="text-align: right;">57.7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25.64</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">91.44</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([62.0, 70.6]\)</span></td>
+<td style="text-align: right;">66.3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.56</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">100.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="diagramas-de-tallo-y-hoja" class="level3">
+<h3 class="anchored" data-anchor-id="diagramas-de-tallo-y-hoja">Diagramas de Tallo y Hoja</h3>
+<p>El uso de tablas de frecuencias agrupadas tiene una desventaja bastante obvia, los datos originales se pierden en el proceso de organización. La Figura 4 muestra algunas situaciones que pueden darse:</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_04.png" width="700px" class="figure-img">
+  <figcaption>
+    <strong>Figura 4:</strong>  Representación de la distribución de los datos en rangos de intervalos.
+  </figcaption>
+</figure>
+<p>Otra forma de presentar <strong>tablas de frecuencias agrupadas</strong> es mediante el <strong>diagrama de tallo y hoja</strong>, el cual permite mostrar los datos de manera clara <strong>sin perder la información individual ni la noción de distancia entre observaciones</strong>.</p>
+<p>En este diagrama, el <strong>tallo</strong> corresponde a la primera parte del número y presenta menor variación, mientras que la <strong>hoja</strong> está formada por los dígitos restantes. Por ejemplo, el valor 548 puede descomponerse como tallo 5 y hoja 48, o bien como tallo 54 y hoja 8, según el nivel de detalle deseado.</p>
+<p>El diagrama de tallo y hoja es especialmente útil cuando se trabaja con <strong>conjuntos pequeños de datos</strong> (generalmente menos de 30 observaciones), ya que en estos casos un histograma aporta poca información adicional.</p>
+<pre><code> 5 | 48   → tallo | hoja
+54 | 8   → tallo | hoja</code></pre>
+<p>**Ejemplo*: Los datos observados corresponden a la <strong>proporción de reclamos por pagos incorrectos</strong> en las cuentas de consumo mensual de electricidad durante los últimos dos años.</p>
+<p>Los datos son los siguientes:</p>
+<pre class="text"><code>7.12  7.89  10.12  8.88  10.02  9.91  9.95  9.90
+10.23 9.12  9.99   12.40 8.65   10.05 10.50 9.87
+8.54  9.72  11.09  11.52 12.30  11.53 16.40 13.24</code></pre>
+<p>Los valores se encuentran en el intervalo comprendido entre <strong>7.12 y 16.40</strong>. En esta aplicación se utilizan como <strong>tallos</strong> los valores enteros desde 7 hasta 16, obteniéndose el siguiente <strong>diagrama de tallo y hoja</strong>:</p>
+<p><strong>Diagrama de tallo y hoja</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Tallo</th>
+<th style="text-align: left;">Hojas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">12 89</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">54 65 88</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">12 72 87 90 91 95 99</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">02 05 12 23 50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: left;">09 52 53</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: left;">03 40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: left;">–</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: left;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: left;">40</td>
+</tr>
+</tbody>
+</table>
+<p>Otra forma de representar los datos consiste en <strong>destacar su carácter decimal</strong>, omitiendo los tallos con frecuencia nula cercanos a los extremos, lo que permite visualizar con mayor claridad la <strong>discontinuidad</strong> en la distribución:</p>
+<p><strong>Diagrama alternativo</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Tallo</th>
+<th style="text-align: left;">Hojas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">12 89</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">54 65 88</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">12 72 87 90 91 95 99</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">02 05 12 23 50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: left;">09 52 53</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: left;">03 40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: left;">40</td>
+</tr>
+</tbody>
+</table>
+<p>En algunos casos, ciertas características de los datos pueden apreciarse mejor si cada tallo se divide en <strong>subtallos</strong>, dando origen al <strong>diagrama de tallo y hoja doble</strong>. En este caso, se separa cada tallo en dos partes:</p>
+<ul>
+<li><em>a</em>: valores con parte decimal menor a 50</li>
+<li><em>b</em>: valores con parte decimal mayor o igual a 50</li>
+</ul>
+<p>El diagrama resultante es:</p>
+<p><strong>Diagrama de doble tallo y hoja</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Tallo</th>
+<th style="text-align: left;">Hojas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">7,a</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7,b</td>
+<td style="text-align: left;">89</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8,a</td>
+<td style="text-align: left;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8,b</td>
+<td style="text-align: left;">54 65 88</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9,a</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">9,b</td>
+<td style="text-align: left;">72 87 90 91 95 99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10,a</td>
+<td style="text-align: left;">02 05 12 23</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10,b</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11,a</td>
+<td style="text-align: left;">09</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">11,b</td>
+<td style="text-align: left;">52 53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">12,a</td>
+<td style="text-align: left;">03 40</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">13,a</td>
+<td style="text-align: left;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">16,a</td>
+<td style="text-align: left;">40</td>
+</tr>
+</tbody>
+</table>
+<p>Una utilidad adicional de los <strong>diagramas de tallo y hoja</strong> es que permiten <strong>comparar conjuntos de datos</strong>, cuando resulta pertinente hacerlo. En este contexto, es posible contrastar los valores correspondientes a ambos años mediante un diagrama comparativo, facilitando el análisis visual de posibles diferencias en la distribución.</p>
+</section>
+<section id="gráficos" class="level3">
+<h3 class="anchored" data-anchor-id="gráficos">Gráficos</h3>
+<p>Un gráfico es otra forma de representar y resumir datos, en el gráfico se pueden se hacer evidentes ciertas características que en una tabla de frecuencias pueden pasar inadvertidas.</p>
+<p>La representación gráfica de los datos ha logrado un uso creciente en los medios de comunicación y eso se debe en gran parte, a la popularidad y uso de software con amplias representaciones gráficas. Hay disponibilidad de gráficas de muchos tipos, desde aquellas para datos agrupados en tablas de frecuencias hasta datos no agrupados, donde su uso depende en gran medida del tipo de escala empleada. En adelante se ilustran distintos tipos de gráficos comúnmente utilizados.</p>
+<p><em>Gráficos de barras</em> y la <em>gráfica de pastel</em> ( <em>circular</em> ), son los gráficos más comunes y sencillos, usualmente utilizados en datos categóricos. Cuando los datos se presentan en escala nominal, la secuencia en que se presentan las clases es totalmente arbitraria, sin embargo, cuando los datos se presentan en escala ordinal, las clases deben mantener el orden de la escala. A continuación se presentan dos aplicaciones que exponen una serie de gráficos y variaciones de estos.</p>
+<p><strong>Ejemplo</strong>: La tabla siguiente muestra la proporción de clientes según su sector de ubicación.</p>
+<p><strong>Tabla 4.6. Sector de ubicación del cliente</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Sector</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">Proporción (%)</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_05.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 5:</strong>  Gráficas de barra asociada de ubicación del cliente.
+  </figcaption>
+</figure>
+<p>A partir de estos datos pueden construirse <strong>gráficas de barras</strong>, que permiten comparar visualmente la proporción de clientes en cada sector.</p>
+<p>Los <strong>gráficos circulares</strong> constituyen otra alternativa para representar esta información. El gráfico circular tradicional destaca por su sencillez e interpretación directa, mientras que las versiones en tres dimensiones, aunque visualmente atractivas, pueden distorsionar la percepción relativa de los sectores.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_06.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 6:</strong>  Gráficas circulares asociadas al sector del cliente.
+  </figcaption>
+</figure>
+<p><strong>Ejemplo</strong>: Supóngase ahora que se desea analizar el <strong>grado de satisfacción de los clientes</strong> respecto a los servicios adicionales prestados por la empresa. Para ello, una muestra de 77 clientes clasifica su nivel de satisfacción en las siguientes categorías: Insatisfecho (I), Indiferente (II), Normal (N), Satisfecho con reparos (SR) y Totalmente satisfecho (TS).</p>
+<p><strong>Tabla 4.7. Grado de satisfacción por servicios adicionales</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Grado de satisfacción</th>
+<th style="text-align: right;">Frecuencia</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Insatisfecho (I)</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td>Indiferente (II)</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td>Normal (N)</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="even">
+<td>Satisfecho con reparos (SR)</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="odd">
+<td>Totalmente satisfecho (TS)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">77</td>
+</tr>
+</tbody>
+</table>
+<p>Dado que la variable es <strong>cualitativa ordinal</strong>, existe un orden natural en sus categorías, lo que debe respetarse en su representación gráfica.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_07.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 7:</strong>  Gráficas circulares asociadas al sector del cliente.
+  </figcaption>
+</figure>
+<p>En el caso de <strong>datos cuantitativos continuos</strong>, las representaciones gráficas más habituales son:</p>
+<ul>
+<li>el <strong>histograma de frecuencias</strong> acompañado del <strong>polígono de frecuencias</strong>, y</li>
+<li>la <strong>gráfica de frecuencias acumuladas</strong> junto con la <strong>ojiva</strong>.</li>
+</ul>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_08.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 8:</strong> Histograma de frecuencia y polígono de frecuencia para los tiempos de espera.
+  </figcaption>
+</figure>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_09.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 9:</strong> Gráfica de frecuencia acumulada y ojiva para los tiempos de espera antes de su atención.
+  </figcaption>
+</figure>
+<p>La última representación gráfica es utilizada en particular cuando la variable bajo estudio se ha medido en el tiempo (datos longitudinales). Está gráfica, llamada diagrama de dispersión, es de gran utilidad en series de tiempo y control estadístico de la calidad, tiene la particularidad que puede mostrar tendencias de los datos en e tiempo. Consideremos los datos de la aplicación 4.5, pero además agreguemos el tiempo como referencia.</p>
+<p><strong>Tabla 4.7. Proporción de reclamos por pagos incorrectos según mes y año</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Mes</th>
+<th style="text-align: center;">Año 1</th>
+<th style="text-align: center;">Año 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enero</td>
+<td style="text-align: center;">7.12</td>
+<td style="text-align: center;">8.65</td>
+</tr>
+<tr class="even">
+<td>Febrero</td>
+<td style="text-align: center;">7.89</td>
+<td style="text-align: center;">10.05</td>
+</tr>
+<tr class="odd">
+<td>Marzo</td>
+<td style="text-align: center;">10.12</td>
+<td style="text-align: center;">10.50</td>
+</tr>
+<tr class="even">
+<td>Abril</td>
+<td style="text-align: center;">8.88</td>
+<td style="text-align: center;">9.87</td>
+</tr>
+<tr class="odd">
+<td>Mayo</td>
+<td style="text-align: center;">10.02</td>
+<td style="text-align: center;">8.54</td>
+</tr>
+<tr class="even">
+<td>Junio</td>
+<td style="text-align: center;">9.91</td>
+<td style="text-align: center;">9.72</td>
+</tr>
+<tr class="odd">
+<td>Julio</td>
+<td style="text-align: center;">9.95</td>
+<td style="text-align: center;">11.09</td>
+</tr>
+<tr class="even">
+<td>Agosto</td>
+<td style="text-align: center;">9.90</td>
+<td style="text-align: center;">11.52</td>
+</tr>
+<tr class="odd">
+<td>Septiembre</td>
+<td style="text-align: center;">10.23</td>
+<td style="text-align: center;">12.30</td>
+</tr>
+<tr class="even">
+<td>Octubre</td>
+<td style="text-align: center;">9.12</td>
+<td style="text-align: center;">11.53</td>
+</tr>
+<tr class="odd">
+<td>Noviembre</td>
+<td style="text-align: center;">9.99</td>
+<td style="text-align: center;">16.40</td>
+</tr>
+<tr class="even">
+<td>Diciembre</td>
+<td style="text-align: center;">12.40</td>
+<td style="text-align: center;">13.24</td>
+</tr>
+</tbody>
+</table>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_10.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 10:</strong> Diagrama de Dispersión Porcentaje de reclamos el tiempo.
+  </figcaption>
+</figure>
+</section>
+</section>
+<section id="medidas-de-desempeño" class="level2">
+<h2 class="anchored" data-anchor-id="medidas-de-desempeño">Medidas de Desempeño</h2>
+<p>Los indicadores de desempeño han adquirido gran importancia a partir del establecimiento de la filosofía de gestión, calidad total y la aplicación de normas nacionales o internacionales. Son herramientas para la evaluación de la gestión, que proveen valores de referencia con el cual se puedan comparar o proponer metas.</p>
+<p>Las medidas de desempeño son otro medio con el cual se resumen los datos, ya que a través de ellos se establece una medida resumen de alguna particularidad en los datos. Estos indicadores se dividen en tres tipos: medidas de posición, resumen de los datos que representa un lugar definido importante dentro de ellos; medidas de variabilidad o riesgo, que como se podrá apreciar son muy importantes ;y medidas de forma, que tienen una importante relación con un grupo de medidas de posición.</p>
+<section id="medidas-de-posición" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-posición">Medidas de Posición</h3>
+<p>Una medida de <strong>posición</strong> es un valor simple que se calcula para un grupo de datos y que se utiliza como una manera de resumir a estos un valor dentro del rango de los datos. Normalmente se desea que el valor sea representativo de todos los valores incluidos en el grupo, estos valores pueden estar relacionados con posiciones de particular interés como los extremos, los cuales se asocian a <em>cuantiles</em> , o valores del centro, llamados de <em>tendencia central</em>.</p>
+<p><strong>La Media Aritmética</strong> : La media aritmética, o promedio, se define como el cociente de la suma de todos los valores entre el número total de valores. En estadística, un <strong>“promedio**” es una medida de </strong>Tendencia central** para un conjunto de datos.</p>
+<p>En estadística es normal representar una medida descriptiva de una población, (o parámetro poblacional), mediante letras griegas, en tanto que se utilizan letras romanas para las medidas descriptivas de estadísticas muestrales. Así, la media aritmética para una <strong>población</strong> de valores se presenta mediante el símbolo μ, en tanto</p>
+<p>que la media aritmética de una <strong>muestra</strong> se representa mediante el símbolo X. Las expresiones para el cálculo de la media de una población y de una muestra son:</p>
+<p><span class="math display">\[
+\mu = \frac{1}{N}\sum_{i=1}^{N} X_i
+\qquad\text{y}\qquad
+\bar{X} = \frac{1}{n}\sum_{i=1}^{n} X_i
+\]</span></p>
+<p><strong>Ejemplo</strong> : Los pagos de consumo, en una muestra de 15 cuentas en un restaurante, fueron:</p>
+<p><span class="math display">\[1000, 1000, 2500, 2500, 2500, 3500, 4000,\]</span> <span class="math display">\[5300, 9000,12500, 13500, 24500, 27500, 30900, 41000\]</span></p>
+<p>El promedio muestral es:</p>
+<p><span class="math display">\[
+\bar{X} = \frac{1}{15}\sum_{i=1}^{15} X_i = 12.080
+\]</span></p>
+<p>Cuando se agrupan datos en una distribución de frecuencias, se utiliza el punto medio de cada clase como aproximación de todos los valores contenidos en ella. El punto medio o marca de clase se representa con el símbolo <span class="math inline">\(m_i\)</span> , en donde el subíndice <span class="math inline">\(i\)</span> indica la “clase <span class="math inline">\(i\)</span>”, y se utiliza la letra <span class="math inline">\(n_i\)</span> para representar la frecuencia absoluta observada en la clase respectiva.</p>
+<p>Las fórmulas para la media de la población y de la muestra para datos agrupados son:</p>
+<p><span class="math display">\[
+\mu = \frac{1}{N}\sum_{i=1}^{k} n_i m_i
+\qquad\text{y}\qquad
+\bar{X} = \frac{1}{n}\sum_{i=1}^{k} n_i m_i
+\]</span></p>
+<p><strong>Ejemplo</strong> : Considerando los datos del tiempo de espera (en segundos) antes de ser atendido se tiene:</p>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tiempos (seg.)</th>
+<th style="text-align: right;">Marca de clase</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia relativa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\([10.4,;19.0)\)</span></td>
+<td style="text-align: right;">14.7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.85 %</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\([19.0,;27.6)\)</span></td>
+<td style="text-align: right;">23.3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.42 %</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\([27.6,;36.2)\)</span></td>
+<td style="text-align: right;">31.9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">9.40 %</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\([36.2,;44.8)\)</span></td>
+<td style="text-align: right;">40.5</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">18.80 %</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\([44.8,;53.4)\)</span></td>
+<td style="text-align: right;">49.1</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">33.33 %</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\([53.4,;62.0)\)</span></td>
+<td style="text-align: right;">57.7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">25.64 %</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\([62.0,;70.6]\)</span></td>
+<td style="text-align: right;">66.3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.56 %</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\bar{X}
+= \frac{1}{117}\sum_{i=1}^{k} n_i m_i
+= \frac{14.7 \times 1 + 23.3 \times 4 + \cdots + 66.3 \times 10}{117}
+= 48.4 \; \text{segundos}
+\]</span></p>
+<p>La gran desventaja de este indicador es su <em>gran sensibilidad</em> a la presencia de datos extremos. Un dato extremo se manifiesta inmediatamente en el promedio, poniendo en duda el ser un valor representativo del centro de los datos.</p>
+<p><strong>La Mediana</strong> <em>:</em> La <em>mediana</em> de un conjunto de datos es el valor que ocupa el lugar central de estos cuando se ordenan en orden de magnitud. Para conjunto de datos, con un número par de elementos, la mediana se calcula como el promedio de los valores centrales.</p>
+<p>En el caso de estar trabajando con datos dispersos, la expresión para determinar la posición de la mediana en el conjunto (ordenado) es:</p>
+<p><span class="math display">\[
+\mathrm{Me} =
+\begin{cases}
+X_{\left(\frac{n+1}{2}\right)}, &amp; \text{si } n \text{ es impar}, \\[6pt]
+\dfrac{1}{2}\left(X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}\right),
+&amp; \text{si } n \text{ es par}.
+\end{cases}
+\]</span></p>
+<p>En las expresiones anteriores, <span class="math inline">\(X\)</span>, representa el valor de dato, mientras que el paréntesis en el subíndice, muestra el lugar que ocupa la mediana dentro del conjunto de datos ordenados.</p>
+<p><strong>Ejemplo</strong> : Considerando los pagos de consumo, en una muestra de 15 cuentas en un restaurante:</p>
+<p><span class="math display">\[1000, 1000, 2500, 2500, 2500, 3500, 4000,\]</span> <span class="math display">\[5300, 9000,12500, 13500, 24500, 27500, 30900, 41000\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \mathrm{Me}
+= X_{\left(\frac{n+1}{2}\right)}
+= X_{\left(\frac{15+1}{2}\right)}
+= 5.300
+\]</span></p>
+<p>Para datos agrupados, en <strong>primer lugar</strong> es necesario determinar <strong><em>la clase</em></strong> que contiene el valor de la mediana, para después determinar la posición de la mediana dentro de la clase mediante interpolación. La clase que contiene la mediana es la primera clase cuya <em>frecuencia acumulada</em> es mayor o igual a la mitad de los datos. Una vez que se identifica esta clase, se determina el valor interpolado de la <em>mediana</em> , empleando la siguiente expresión:</p>
+<p><span class="math display">\[
+\mathrm{Me}
+= L_i
++ \left(\frac{\frac{n}{2} - N_{i-1}}{n_i}\right)a_i
+\]</span></p>
+<ul>
+<li><span class="math inline">\(L _i\)</span> = Límite inferior de la clase que contiene la mediana.</li>
+<li><span class="math inline">\(n\)</span>= número total de observaciones en la distribución de frecuencias.</li>
+<li><span class="math inline">\(a_i\)</span> Amplitud de clase.</li>
+<li><span class="math inline">\(N_{i-1}\)</span> = La frecuencia acumulada anterior a la clase que contiene la mediana.</li>
+<li><span class="math inline">\(n_i\)</span>= Número de observaciones en la clase que contiene la mediana.</li>
+</ul>
+<p>Los fundamentos de esta expresión están en la ojiva y la interpolación lineal.</p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados de la Tabla 4.5, la mediana del tiempo de espera (en segundos) antes de ser atendido es:</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 26%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tiempos (seg.)</th>
+<th style="text-align: right;">Marca de clase</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([10.4,;19.0)\)</span></td>
+<td style="text-align: right;">14.7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><strong><span class="math inline">\([44.8,;53.4)\)</span></strong></td>
+<td style="text-align: right;"><strong>49.1</strong></td>
+<td style="text-align: right;"><strong>39</strong></td>
+<td style="text-align: right;"><strong>77</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Cálculo de la mediana (datos agrupados):</p>
+<p><span class="math display">\[
+\mathrm{Me}
+= 44.8
++ \left(\frac{\frac{117}{2} - 38}{39}\right)\,8.6
+= 49.3 \;\text{segundos}
+\]</span></p>
+<p>La <em>mediana</em> es otra medida de tendencia central, este indicador no es afectado por datos extremos (indicador robusto).</p>
+<p><strong>La Moda</strong> : Medida de tendencia central, que está dada por el valor o clase que se presenta con <strong>mayor frecuencia.</strong> A una distribución que tiene una sola moda se le denomina <em>unimodal.</em></p>
+<p>Cuando dos valores no adyacentes tienen frecuencias máximas similares, se dice que la distribución es <em>bimodal</em>.</p>
+<p>Para datos agrupados, primero se identifica la clase que contiene la moda, determinando la clase que tiene el mayor número de observaciones (clase modal). Algunos autores consideran que la moda es el punto medio de la clase modal (marca de clase), otros, interpolan dentro de la clase modal, de acuerdo con la siguiente expresión:</p>
+<p><span class="math display">\[
+\mathrm{Mo}
+= L_i
++ \left(\frac{d_1}{d_1 + d_2}\right)a_i,
+\qquad
+\text{donde }
+\frac{d_1}{d_1 + d_2}
+\text{ es un factor de ponderación.}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(L_i\)</span> = Límite inferior de la clase que contiene la moda.</li>
+<li><span class="math inline">\(d_1\)</span> = Diferencia entre la frecuencia de la clase modal y la frecuencia de la clase que le precede.</li>
+<li><span class="math inline">\(d_2\)</span> = Diferencia entre la frecuencia de la clase modal y la frecuencia de la clase que le sigue. <span class="math inline">\(a_i\)</span> = Amplitud del intervalo de clase.</li>
+</ul>
+<p>La deducción de la expresión es clara con la ayuda de la Figura 11. Como se puede apreciar en esta figura <span class="math inline">\(d_2\)</span> es menor que <span class="math inline">\(d_1\)</span> , por esta razón el factor de ponderación es mayor que 0.5, que multiplicado por la amplitud permite que la moda se encuentre más cerca del limite superior de la clase modal.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_11.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 11:</strong> Esquema de localización de la moda.
+  </figcaption>
+</figure>
+<p>En caso que <span class="math inline">\(d_2\)</span> sea mayor que <span class="math inline">\(d_1\)</span> , el factor de ponderación es menor que 0.5, que multiplicado a la amplitud permite que la moda se encuentre más cerca del limite inferior. Cuando <span class="math inline">\(d_2\)</span> es igual a <span class="math inline">\(d_1\)</span> , el factor de ponderación es 0.5, que multiplicado a la amplitud permite que la moda se encuentre justo en la marca de clase modal.</p>
+<p>En tablas de frecuencia es posible encontrar dos o más clases con igual máxima frecuencia, en este caso se dice que la población es: <em>bimodal</em> , <em>trimodal</em> , etc.</p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados de la Tabla 4.5, la moda de los tiempos de espera (en segundos) es:</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 26%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tiempos (seg.)</th>
+<th style="text-align: right;">Marca de clase</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([36.2,;44.8)\)</span></td>
+<td style="text-align: right;">40.5</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong><span class="math inline">\([44.8,;53.4)\)</span></strong></td>
+<td style="text-align: right;"><strong>49.1</strong></td>
+<td style="text-align: right;"><strong>39</strong></td>
+<td style="text-align: right;"><strong>77</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([53.4,;62.0)\)</span></td>
+<td style="text-align: right;">57.7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">107</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\mathrm{Mo}
+= 44.8
++ \left(\frac{39 - 22}{(39 - 22) + (39 - 30)}\right)\,8.6
+= 50.4 \;\text{segundos}
+\]</span></p>
+<p>Existen otras medidas de tendencia central, utilizadas en situaciones más específicas como una solución al problema de la alta sensibilidad del promedio aritmético, alguna de ellas son:</p>
+<p><strong>Media Geométrica</strong> : Se utiliza principalmente para promediar proporciones de variaciones, en datos económicos y se define como la raíz <em>n-ésima</em> del producto de los <em>n</em> valores.</p>
+<p><span class="math display">\[
+M_G = \sqrt[n]{x_1 \cdot x_2 \cdots x_n}
+\]</span></p>
+<p><strong>Media Armónica</strong> : Se define como el recíproco de la media de los recíprocos de las medias, es decir:</p>
+<p><span class="math display">\[
+M_H = \frac{n}{\displaystyle\sum_{i=1}^{n}\frac{1}{x_i}}
+\]</span></p>
+<p><strong>Media Recortada</strong> : Se define como el valor medio excluyendo un porcentaje de datos en el extremo inferior y superior del conjunto de observaciones. Existen medias recortadas al 90%, 80%, etc. Por ejemplo, en la media recortada al 90%, no se consideran en el cálculo de la media el 5% de los datos más pequeños y el 5% de los datos más grandes.</p>
+<p><strong>Cuantiles</strong> : Los cuantiles son medidas de posición que dividen los datos en grupos bajo los cuales se encuentra una determinada proporción de éstos, por lo se requiere que los datos se encuentren en al menos escala</p>
+<p>La <em>mediana</em> es un cuantil que divide la distribución de los datos en dos partes de igual frecuencia acumulada, y luego bajo/sobre la mediana se encuentra acumulado el 50% de los datos. Los <em>cuartiles</em> , la dividen en cuatro cuartos; los <em>quintiles</em> , dividen la población en cinco; los <em>deciles</em> , la dividen en diez décimos; y los puntos <em>percentiles</em> , la dividen en cien partes. Estos, en el caso de datos dispersos, son expresados por:</p>
+<p><span class="math display">\[
+Q_i \;(\text{cuartil } i)
+= X_{\left(\frac{i(n+1)}{4}\right)},
+\qquad i = 1,2,\ldots,4
+\]</span></p>
+<p><span class="math display">\[
+K_i \;(\text{quintil } i)
+= X_{\left(\frac{i(n+1)}{5}\right)},
+\qquad i = 1,2,\ldots,5
+\]</span></p>
+<p><span class="math display">\[
+D_i \;(\text{decil } i)
+= X_{\left(\frac{i(n+1)}{10}\right)},
+\qquad i = 1,2,\ldots,10
+\]</span></p>
+<p><span class="math display">\[
+P_i \;(\text{percentil } i)
+= X_{\left(\frac{i(n+1)}{100}\right)},
+\qquad i = 1,2,\ldots,100
+\]</span></p>
+<p>Estas expresiones son exactas en la medida que los factores de proporción: <span class="math inline">\(\frac{i(n+1)}{4},\;
+\frac{i(n+1)}{10},\;
+\frac{i(n+1)}{100}\)</span> sean números enteros, en caso contrario una buena aproximación (aunque no la única) la entrega el promedio entre el entero superior e inferior de la respectiva fracción, tal como se presenta en la aplicación siguiente.</p>
+<p><strong>Ejemplo</strong> : Considerando los pagos de consumo:</p>
+<p><span class="math display">\[1000, 1000, 2500, 2500, 2500, 3500, 4000, 5300,\]</span> <span class="math display">\[9000,12500, 13500, 24500, 27500, 30900,41000\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Q_3
+= X_{\left(\frac{3(15+1)}{4}\right)}
+= X_{(12)}
+= 24.500
+\]</span></p>
+<p>Luego, el 75% de los pagos por consumo son menores o iguales a $ 24.500.</p>
+<p>Algunos casos en que el factor de proporción no resulta un número entero, como por ejemplo, el decil 4 ó el percentil 68. En el primero, el valor se encuentra entre los valores sexto y séptimo del grupo ordenado, cuya interpretación sería que el 40% de los importes de consumo de las 15 cuentas del restaurante son menores o iguales a $ 3.750.</p>
+<p><span class="math display">\[
+D_4
+= X_{\left(\frac{4(15+1)}{10}\right)}
+= X_{(6.4)}
+= \frac{X_{(6)} + X_{(7)}}{2}
+= 3.750
+\]</span></p>
+<p>En el segundo cuantil, el valor se encuentra entre los valores 10 y 11 del grupo ordenado.</p>
+<p><span class="math display">\[
+P_{68}
+= X_{\left(\frac{68(15+1)}{100}\right)}
+= X_{(10.88)}
+= \frac{X_{(10)} + X_{(11)}}{2}
+= 13.000
+\]</span></p>
+<p>Para datos agrupados, la fórmula se modifica de acuerdo con el punto fraccionario de interés. Para utilizar esta expresión modificada, en <em>primer lugar</em> se <em>determina la clase que contiene el punto de interés,</em> de acuerdo con las frecuencias acumuladas, y después se lleva a cabo una interpolación como en el caso anterior de la mediana. Ahora un análisis más exhaustivo de estas expresiones se obtiene a través del segmento de la línea recta en la ojiva, recordemos la Figura 4 de los tiempos de espera, donde a partir de 117 datos, se construye la gráfica, de la Figura 4.10 y supongamos que estamos interesados en el percentil 78, por lo tanto debemos determinar, de acuerdo con las frecuencias acumuladas <em>la clase que contiene el punto de interés</em> , como se muestra en la Figura 12, este punto se encuentra en la penúltima clase.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_12.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 12:</strong> Gráfica para la determinación de percentiles.
+  </figcaption>
+</figure>
+<p>Si se recuerda la ecuación de la línea de la recta, dada por:</p>
+<p><span class="math display">\[
+\frac{y - y_1}{y_2 - y_1}
+=
+\frac{x - x_1}{x_2 - x_1}
+\]</span></p>
+<p>En este caso se observa que:</p>
+<p><span class="math display">\[
+y = \textbf{y} \qquad
+x = P_{78} \qquad
+x_2 - x_1 = LS - LI = a \qquad
+y_2 - y_1 = N_i - N_{i-1} = n_i
+\]</span></p>
+<p>Luego despejando <span class="math inline">\(x = P_{78}\)</span> , se obtiene una expresión para el cálculo de percentiles en datos agrupados:</p>
+<p><span class="math display">\[
+x = P_{78}
+= x_1 + \left(\frac{y - y_1}{y_2 - y_1}\right)(x_2 - x_1)
+= LI + \left(\frac{y - N_{i-1}}{n_i}\right)a
+\]</span></p>
+<p>En el futuro se debe notar que <span class="math inline">\(y\)</span> no es otra cosa que <span class="math inline">\(\dfrac{n \times j}{100}\)</span>, donde <span class="math inline">\(j\)</span> es el percentil <em>j-ésimo</em>.</p>
+<p>Luego, la expresión general para el cálculo de percentiles, utilizando frecuencias absolutas como relativas está dada por:</p>
+<p><span class="math display">\[
+P_j
+= LI
++ \left(\frac{\frac{n \cdot j}{100} - N_{i-1}}{n_i}\right)a
+= LI
++ \left(\frac{\frac{j}{100} - F_{i-1}}{f_i}\right)a
+\]</span></p>
+<p>Esta expresión claramente permite el cálculo de deciles, quintiles o cuartiles.</p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados en Tabla 4.5, el percentil 80 de los tiempos de espera (en segundos) es:</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 26%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tiempos (seg.)</th>
+<th style="text-align: right;">Marca de clase</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\([44.8,;53.4)\)</span></td>
+<td style="text-align: right;">49.1</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><strong><span class="math inline">\([53.4,;62.0)\)</span></strong></td>
+<td style="text-align: right;"><strong>57.7</strong></td>
+<td style="text-align: right;"><strong>30</strong></td>
+<td style="text-align: right;"><strong>107</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\([62.0,;70.6)\)</span></td>
+<td style="text-align: right;">66.3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">117</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+P_{80}
+= 53.4
++ \left(\frac{\frac{117 \cdot 80}{100} - 77}{30}\right)\,8.6
+= 58.2 \;\text{segundos}
+\]</span></p>
+<p>Luego, el 80% de los tiempos de espera es menor o igual a los 58,2 segundos.</p>
+<p>Otra utilidad, de la expresión anterior, permite determinar que porcentaje de los datos se encuentra bajo (o por defecto sobre) un determinado valor, como por ejemplo, ¿Qué porcentaje de las veces, los tiempos de espera fueron superiores a 47 segundos?. En este caso se conoce el percentil, pero no el porcentaje, luego:</p>
+<p><span class="math display">\[
+47
+= 44.8
++ \left(\frac{\frac{117 \cdot j}{100} - 38}{39}\right)\,8.6
+\;\;\Longrightarrow\;\;
+j = 41.01\%
+\]</span></p>
+<p>Por lo tanto, el (100 – 40,01)%= 58,99%. son superiores a 47 segundos.</p>
+<p>También se puede determinar el porcentaje de tiempos de servicio que se encuentra en el intervalo [47; 63] segundos. Como se sabe el porcentaje que se encuentra bajo los 47 segundos (40,01%),y determinando el % que están bajo los 63 segundos.</p>
+<p><span class="math display">\[
+63
+= 62.0
++ \left(\frac{\frac{117 \cdot j}{100} - 107}{10}\right)\,8.6
+\;\;\Longrightarrow\;\;
+j = 92.45\%
+\]</span></p>
+<p>Obteniéndose que el porcentaje de tiempos de servicio en el intervalo deseado es de (92,45 – 40,01)% = 51,44%.</p>
+</section>
+<section id="medidas-de-variabilidad" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-variabilidad">Medidas de Variabilidad</h3>
+<p>Las medidas de tendencia central ó de posición que se presentaron son útiles para identificar un valor “típico” ó “particular” de un conjunto de datos, las <em>medidas de variabilidad</em> se ocupan de describir la dispersión (riesgo, precisión) de los datos con respecto a una medida del centro o un valor particular.</p>
+<p>A modo de ejemplo, suponga que dos máquinas empacadoras dan como resultado productos con un peso promedio de 10 gramos, pero que en un caso los productos se encuentran dentro de un rango de 0,1 gramos con respecto a este peso promedio, en tanto que en el otro los pesos pueden variar hasta en un gramo. Como se observa en la Figura 13, en el primer caso los datos son menos dispersos respecto al valor de 10 gramos que en el segundo caso, lo que implicaría que suposiciones realizadas al primer caso serían de menor riesgo que las del segundo.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_13.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 13:</strong> Visualización de la variabilidad en un conjunto de datos.
+  </figcaption>
+</figure>
+<p>Existen varios indicadores para medir la magnitud de la variabilidad en conjuntos de datos. Las que se describen a continuación son: <strong><em>rango</em></strong> , <strong><em>rango modificado</em></strong> <em>,</em> <strong><em>desviación media</em></strong> , <strong><em>varianza, desviación estándar y coeficiente de variación</em>.</strong></p>
+<p><strong>El rango</strong>: El rango <span class="math inline">\((R)\)</span> es la diferencia entre el mayor y el menor valor del conjunto de datos. Si <span class="math inline">\(\max{x_i}\)</span> representa el valor máximo y <span class="math inline">\(\min{x_i}\)</span> el valor mínimo, entonces:</p>
+<p><span class="math display">\[
+R =
+\begin{cases}
+\max\{x_i\} - \min\{x_i\}, &amp; \text{datos no agrupados},\\[6pt]
+LS_k - LI_1, &amp; \text{datos agrupados}.
+\end{cases}
+\]</span></p>
+<p><strong>Ejemplo</strong>: Considerando los pagos de consumo en una muestra de 15 cuentas en un restaurante:</p>
+<p><span class="math display">\[1000, 1000, 2500, 2500, 2500, 3500, 4000,\]</span> <span class="math display">\[5300, 9000,12500, 13500, 24500, 27500, 30900, 41000\]</span></p>
+<p>el rango es:</p>
+<p><span class="math display">\[
+R = \max\{x_i\} - \min\{x_i\}
+= 41000 - 1000
+= 40{,}000.
+\]</span></p>
+<p><strong>Ejemplo</strong>: Para los datos agrupados de la Tabla 4.5, el rango de los tiempos de espera (en segundos) es:</p>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 28%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Tiempos (seg.)</th>
+<th style="text-align: right;">Marca de clase</th>
+<th style="text-align: right;">Frecuencia absoluta</th>
+<th style="text-align: right;">Frecuencia acumulada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([10.4,;19.0)\)</span></td>
+<td style="text-align: right;">14.7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\([62.0,;70.6)\)</span></td>
+<td style="text-align: right;">66.3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">117</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+R = LS_7 - LI_1
+= 70.6 - 10.4
+= 60.2 \;\text{segundos}.
+\]</span></p>
+<p><strong>Rangos Modificados</strong>: Un rango modificado es un rango para el cual se elimina cierto porcentaje de los valores en cada uno de los extremos de la distribución y se simboliza por <span class="math inline">\(R_{\text{mod}}) ((j%) \text{ central})\)</span>. Algunos rangos modificados típicos son el 50% central, el 80% central y el 90% central.</p>
+<p>Para determinar el rango modificado, primero se deben ubicar los dos percentiles de interés y, posteriormente, calcular el rango entre ellos. Por ejemplo, para el rango del 80% central, los percentiles de interés son el décimo percentil y el nonagésimo percentil, ya que el 80% central de los valores se encuentra entre estos dos puntos.</p>
+<p><strong>Ejemplo</strong>: Considerando los pagos de consumo en una muestra de 15 cuentas en un restaurante:</p>
+<p><span class="math display">\[1000, 1000, 2500, 2500, 2500, 3500, 4000,\]</span> <span class="math display">\[5300, 9000,12500, 13500, 24500, 27500, 30900, 41000\]</span></p>
+<p>el rango modificado al 50% central está dado por:</p>
+<p><span class="math display">\[
+P_{75} = X_{\left(\frac{75(n+1)}{100}\right)} = X_{(12)} = 24{,}500.
+\]</span></p>
+<p><span class="math display">\[
+P_{25} = X_{\left(\frac{25(n+1)}{100}\right)} = X_{(4)} = 2{,}500.
+\]</span></p>
+<p><span class="math display">\[
+R_{\text{Mod}}(50\% \text{ central}) = P_{75} - P_{25}
+= 24{,}500 - 2{,}500 = 22{,}000.
+\]</span></p>
+<p>El rango modificado al 50% central también es conocido como rango intercuartílico, mientras que el rango modificado al 80% es conocido como rango interdecílico. Los rangos modificados, en general, buscan anular el efecto de valores extremos de los datos, que producirían un fuerte efecto en el rango tradicional, como medida de variabilidad.</p>
+<p><strong>Ejemplo</strong> Para los datos agrupados de la Tabla 4.5, el rango modificado al 90% central de los tiempos de espera (en segundos) es:</p>
+<p><span class="math display">\[
+P_{5} = 27{,}6
++ \left(\frac{\frac{117 \cdot 5}{100} - 5}{11}\right)\,8{,}6
+= 28{,}3\;[\text{seg.}]
+\]</span></p>
+<p><span class="math display">\[
+P_{95} = 62{,}0
++ \left(\frac{\frac{117 \cdot 95}{100} - 107}{10}\right)\,8{,}6
+= 65{,}6\;[\text{seg.}]
+\]</span></p>
+<p><span class="math display">\[
+R_{\text{Mod}}(90\% \text{ central})
+= P_{95} - P_{5}
+= 65{,}6 - 28{,}3
+= 37{,}3\;[\text{segundos}].
+\]</span></p>
+<p><strong>La Desviacion Media</strong> : La desviación media (DM) es la media (promedio) del valor absoluto de la diferencia entre cada uno de los datos y el promedio del grupo.</p>
+<p><span class="math display">\[
+\mathrm{DM} =
+\begin{cases}
+\displaystyle \sum_{i=1}^{n} \frac{\lvert x_i - \bar{x} \rvert}{n},
+&amp; \text{datos dispersos}, \\[10pt]
+\displaystyle \sum_{i=1}^{k} f_i \lvert m_i - \bar{x} \rvert,
+&amp; \text{datos agrupados}.
+\end{cases}
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong>Nota</strong> : Algunos autores utilizan la diferencia entre cada valor y la mediana.</p>
+</blockquote>
+<p>Es común también utilizar indicadores como la desviación mediana (DMe) o la desviación modal (DMo), como indicadores de variabilidad alternativos a la desviación media. La utilización de estos indicadores, es debido a la alta sensibilidad del promedio a valores extremos, que también se hereda en indicadores que utilizan este indicador, como es el caso de la desviación media. También debe notarse, que la desviación modal, sólo es posible cuando la moda se determina a partir de datos cuantitativos, ya que es una medida de dispersión que no tiene sentido en datos cualitativos donde no existe la noción de distancia.</p>
+<p><strong>Ejemplo</strong> : Considere que las ventas (por vendedor) de aparatos eléctricos fueron las siguientes: <span class="math inline">\(5 – 8 – 8 11 – 11 – 11 – 14 – 16\)</span>. La media aritmética es 10,5. y la desviación media es:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(x_i - \bar{x}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\lvert x_i - \bar{x} \rvert\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-5,5</td>
+<td style="text-align: right;">5,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">-2,5</td>
+<td style="text-align: right;">2,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">-2,5</td>
+<td style="text-align: right;">2,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0,5</td>
+<td style="text-align: right;">0,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0,5</td>
+<td style="text-align: right;">0,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0,5</td>
+<td style="text-align: right;">0,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">3,5</td>
+<td style="text-align: right;">3,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3,5</td>
+<td style="text-align: right;">3,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>21,0</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\Rightarrow \mathrm{DM} = \frac{1}{8}\sum_{i=1}^{8} \lvert x_i - \bar{x} \rvert
+= \frac{21}{8}
+= 2{,}625 \approx 2{,}6 \text{ unidades}
+\]</span></p>
+<p>Así, puede decirse que, en promedio, las ventas de aparatos eléctricos por vendedor difieren en 2,6 unidades de la media del grupo,</p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados de la Tabla 4.5, para los tiempos de espera, la media aritmética es 48,4 segundos, la desviación media está dada por:</p>
+<table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 17%">
+<col style="width: 31%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(f_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i - \bar{x}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\lvert m_i - \bar{x} \rvert\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(f_i \lvert m_i - \bar{x} \rvert\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0,009</td>
+<td style="text-align: right;">14,7</td>
+<td style="text-align: right;">-33,7</td>
+<td style="text-align: right;">33,7</td>
+<td style="text-align: right;">0,3033</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,034</td>
+<td style="text-align: right;">23,3</td>
+<td style="text-align: right;">-25,1</td>
+<td style="text-align: right;">25,1</td>
+<td style="text-align: right;">0,8534</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,094</td>
+<td style="text-align: right;">31,9</td>
+<td style="text-align: right;">-16,5</td>
+<td style="text-align: right;">16,5</td>
+<td style="text-align: right;">1,5510</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,188</td>
+<td style="text-align: right;">40,5</td>
+<td style="text-align: right;">-7,9</td>
+<td style="text-align: right;">7,9</td>
+<td style="text-align: right;">1,4852</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,333</td>
+<td style="text-align: right;">49,1</td>
+<td style="text-align: right;">0,7</td>
+<td style="text-align: right;">0,7</td>
+<td style="text-align: right;">0,2331</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,256</td>
+<td style="text-align: right;">57,7</td>
+<td style="text-align: right;">9,3</td>
+<td style="text-align: right;">9,3</td>
+<td style="text-align: right;">2,3808</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,086</td>
+<td style="text-align: right;">66,3</td>
+<td style="text-align: right;">17,9</td>
+<td style="text-align: right;">17,9</td>
+<td style="text-align: right;">1,5394</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>8,3462</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\Rightarrow \mathrm{DM} = \sum_{i=1}^{k} f_i \lvert m_i - \bar{x} \rvert
+\approx 8{,}4 \text{ segundos}
+\]</span></p>
+<p><strong>La Varianza y la Desviación Estándar</strong> : La <strong>varianza</strong> es similar a la desviación media porque se basa en la diferencia entre cada uno de los valores del conjunto de datos y la media del grupo, La diferencia consiste en que, antes de sumarlas, se eleva <em>al cuadrado</em> cada una de las diferencias, Para una población, se representa la varianza mediante <span class="math inline">\(V(X)\)</span> o, típicamente por la letra <span class="math inline">\(\sigma^2\)</span> ; la fórmula de cálculo es:</p>
+<p><span class="math display">\[
+V(X) = \sigma^2 = \sum_{i=1}^{N} \frac{(x_i - \mu)^2}{N}
+\]</span></p>
+<p>A diferencia de otras estadísticas muestrales que se han analizado, la varianza de una muestra no es, en términos de cálculo, completamente equivalente a la varianza de la población, La varianza muestral se representa mediante <span class="math inline">\(S^2\)</span> , y está dada por:</p>
+<p><span class="math display">\[
+S^2 = \sum_{i=1}^{n} \frac{(x_i - \bar{x})^2}{,n-1,}
+\]</span></p>
+<p>Se utiliza con mayor frecuencia la raíz cuadrada de la varianza, representada mediante la letra griega σ para el caso poblacional y <span class="math inline">\(S\)</span> para una muestra, y se le denominada <em>desviación estándar,</em> Las fórmulas son:</p>
+<p><span class="math display">\[
+\sigma = \sqrt{V(X)}
+\]</span></p>
+<p>Estas medidas (muestrales) también tienen su representación en datos agrupados, la cual está dada por:</p>
+<p><span class="math display">\[
+S = \sqrt{\text{Varianza muestral}}
+\]</span></p>
+<p>La <strong>desviación estándar</strong> , además de ser una medida de dispersión que utiliza toda la información (en contraposición con los rangos) y ser expresada en igual unidad de medida que los datos originales, es especialmente útil cuando se le utiliza junto con la denominada distribución normal.</p>
+<p><strong>Ejemplo</strong> : Para los datos de ventas de aparatos eléctricos: <span class="math inline">\(5 – 8 – 8
+11 – 11 – 11 – 14 – 16\)</span>. , la media aritmética es 10,5 unidades. Considerando estos datos mensuales de ventas como la <strong>población</strong> estadística de interés, se determina la desviación estándar:</p>
+<p><span class="math display">\[
+\sigma = \sqrt{V(X)} = \sqrt{\frac{86}{8}} = \sqrt{10{,}75} \approx 3{,}3 \text{ unidades}
+\]</span></p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados de la Tabla 4.5 (tiempos de espera), la media aritmética es 48,4 segundos, la desviación estándar es:</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 22%">
+<col style="width: 27%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(f_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i - \bar{x}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((m_i - \bar{x})^2\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(f_i (m_i - \bar{x})^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0,009</td>
+<td style="text-align: right;">14,7</td>
+<td style="text-align: right;">-33,7</td>
+<td style="text-align: right;">1135,7</td>
+<td style="text-align: right;">10,2212</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,034</td>
+<td style="text-align: right;">23,3</td>
+<td style="text-align: right;">-25,1</td>
+<td style="text-align: right;">630,0</td>
+<td style="text-align: right;">21,4203</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,094</td>
+<td style="text-align: right;">31,9</td>
+<td style="text-align: right;">-16,5</td>
+<td style="text-align: right;">272,3</td>
+<td style="text-align: right;">25,5915</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,188</td>
+<td style="text-align: right;">40,5</td>
+<td style="text-align: right;">-7,9</td>
+<td style="text-align: right;">62,4</td>
+<td style="text-align: right;">11,7331</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,333</td>
+<td style="text-align: right;">49,1</td>
+<td style="text-align: right;">0,7</td>
+<td style="text-align: right;">0,5</td>
+<td style="text-align: right;">0,1632</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,256</td>
+<td style="text-align: right;">57,7</td>
+<td style="text-align: right;">9,3</td>
+<td style="text-align: right;">86,5</td>
+<td style="text-align: right;">22,1414</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,086</td>
+<td style="text-align: right;">66,3</td>
+<td style="text-align: right;">17,9</td>
+<td style="text-align: right;">320,4</td>
+<td style="text-align: right;">27,5533</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>118,826</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\Rightarrow S = \sqrt{V(X)} = \sqrt{118{,}826} \approx 10{,}9
+\]</span></p>
+</section>
+<section id="medidas-de-forma" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-forma">Medidas de Forma</h3>
+<p>Los indicadores de forma de las distribuciones de frecuencias asociadas a un conjunto de datos, son medidas que se agrupan en : <em>asimetría</em> y <em>curtosis</em>.</p>
+<p>Las medidas de <em>asimetría</em> centran su interés en la tendencia de los datos a concentrarse en los valores más pequeños, que se conoce como asimetría positiva; valores más grandes, que conoce como asimetría negativa; o simplemente en el centro, que se denomina como simétrica.</p>
+<p>En la Figura 14, se observan las posibilidades de asimetría, en conjuntos de datos que presentan sólo una cima. En estos casos observar tendencia de los datos resulta fácil, sin embargo cuando se presenta más de una cima en una gráfica (no necesariamente más de una moda), determinar la asimetría de los datos es más riesgoso, con lo cual se recomienda el uso de indicadores para una mayor certeza de la situación. La figura muestra además, el caso de datos simétricos de un conjunto de datos bimodales.</p>
+<p>Las medidas de <em>curtosis</em> centran su atención en la tendencia de los datos en el grado de concentración que estos poseen alrededor de puntos centrales, en este caso se dice que los datos tienen una concentración <em>mesocúrtica</em> cuando el grado de concentración se acerca a ‘ <em>lo ideal</em> ’, mientras que, se habla de <em>letocúrtica</em> o <em>platicúrtica</em> , si el grado de concentración es menor o mayor a lo ideal,respectivamente.</p>
+<p>El concepto de <em>ideal</em> asociado a esta medida, tiene su fundamento en la comparación de la curtosis muestral (mediante el uso de indicadores), con el de un modelo de probabilidad muy importante en estadística clásica que posee un <em>valor teórico</em> fijo con el cual es comparado.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_14.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 14:</strong> Representación de simetría en conjunto de datos.
+  </figcaption>
+</figure>
+<p>En la Figura 14, se muestran las tres situaciones de curtosis, en conjuntos de datos que presentan tan sólo una cima. Se puede apreciar, que en el caso de distribuciones leptocúrticas, la menor variabilidad es evidente en comparación a las otras formas. La distribución mesocúrtica, representa el caso de una distribución con variabilidad <em>ideal</em> , en comparación con el modelo probabilístico <em>Normal</em>. Finalmente la distribución platicúrtica, representa la mayor variabilidad en comparación con la distribución <em>ideal</em>.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_15.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 15:</strong> Representaciones de curtosis en conjunto de datos.
+  </figcaption>
+</figure>
+<p>Sin embargo, mediante un análisis gráfico es muy difícil poder visualizar que un conjunto de datos posee alguno de estos patrones.,</p>
+<p>Los indicadores asociados a curtosis, ayudan a la comparación de la variabilidad en los datos, pues justamente la variabilidad mide el grado de <em>no concentración</em> de estos. Adicionalmente, se pueden emplear como un criterio para determinar la existencia de datos extremos, es decir, muy grandes ó muy pequeños, con respecto al común de los datos observados, que causarían un efecto devastador en algunos indicadores, ó bien, como una señal de la existencia de dos estratos dentro de los datos que se analizan, como en el caso de la Figura 15, donde se muestra un conjunto de datos bimodales, donde perfectamente, se podría suponer que en la característica de la población en estudio se presenta concentrada en dos grupos, que afectarían los resultados de algunos indicadores.</p>
+<p>A continuación se presentan una serie de indicadores asociados a características de forma, en el primer caso se muestran indicadores de asimetría dados por los coeficientes de: Yule, Simetría, Pearson y Fisher; para finalizar con les coeficientes de curtosis: <span class="math inline">\(K_2\)</span> y Fisher.</p>
+<p><strong>Coeficiente de Yule y Simetría</strong> : Estos son dos indicadores de simetría, que se basan en cuantiles centrales, como lo son: cuartil 1, cuartil 3 y la mediana. Las expresiones de cálculo de Yule y Simetría son:</p>
+<p><span class="math display">\[
+I_Y = \frac{Q_3 + Q_1 - 2Q_2}{2Q_2}
+\]</span></p>
+<p><span class="math display">\[
+I_S = \frac{Q_3 + Q_1 - 2Q_2}{Q_3 - Q_1}
+\]</span></p>
+<p>Estos indicadores (adimensionales) son de fácil cálculo, tanto para datos dispersos como agrupados, tienen la ventaja de no ser afectados por observaciones aberrantes, que siempre se encuentran sobre <span class="math inline">\(Q_3\)</span> o bajo <span class="math inline">\(Q_1\)</span> , razón por la cuál se puede</p>
+<p>apreciar que ambos indicadores muestran la simetría en el centro de los datos y no en la totalidad de éstos.</p>
+<p><strong>Coeficiente de Pearson</strong> : El coeficiente de Pearson, se basa en tres indicadores de usual uso en estadística y mide la asimetría, como la diferencia entre la media y la mediana con respecto a la desviación estándar. Este coeficiente poblacional y muestral se encuentran dados respectivamente por:</p>
+<p><span class="math display">\[
+A_S = \frac{3(\bar{x} - M_e)}{S_x}
+\]</span></p>
+<p><span class="math display">\[
+A_S = \frac{3(\mu - M_e)}{\sigma}
+\]</span></p>
+<p>El promedio y la mediana, que son dos medidas de tendencia central, que cuando hay simetría siempre son iguales, y la desviación estándar, que es una medida de riesgo que estandariza el indicador, hacen de éste, un indicador más completo.</p>
+<p><strong>Coeficiente de Simetría de Fisher</strong> : Es el indicador de simetría más fiable de los presentados anteriormente, se basa en el tercer momento de la distribución de los datos, y que para datos dispersos y agrupados se obtiene mediante:</p>
+<p><span class="math display">\[
+m_3 = \sum_{i=1}^{n} \frac{(x_i - \bar{x})^3}{n}
+\]</span></p>
+<p><span class="math display">\[
+m_3 = \sum_{i=1}^{k} f_i (m_i - \bar{x})^3
+\]</span></p>
+<p>Estas medidas se ven fuertemente afectadas por las unidades de medida de los datos en estudio, por lo tanto se estandariza para medir la <em>asimetría</em> estandarizada, cuya expresión queda:</p>
+<p><span class="math display">\[
+\alpha_3 = \frac{m_3}{S_x^3}
+\]</span></p>
+<p>En su cálculo poblacional, al igual que en el coeficiente de Pearson, basta con el reemplazo de los indicadores muestrales: <span class="math inline">\(\overline{x}\)</span> y <span class="math inline">\(s\)</span> , por sus respectivos cálculos poblaciones <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma\)</span>.</p>
+<p>El punto de comparación <em>teórico</em> de estos indicadores es el <em>cero</em> , pues en distribuciones simétricas todos los indicadores resultan ser cero, mientras que si el indicador en negativo o positivo, se dice que la asimetría es negativa o positiva, respectivamente. Sin embargo, en la práctica en el análisis de datos reales, <em>nunca</em> se obtienen coeficientes ‘cero’, por lo cual es bueno recomendar un intervalo en torno al cual se aceptará la simetría.</p>
+<p>Para una distribución simétrica el valor del coeficiente de asimetría es cero, porque el promedio y la mediana son iguales, mientras que para una distribución con asimetría positiva la media es siempre mayor que la mediana y, por ello el valor del coeficiente es positivo, como se muestra en la Figura 15, donde además se muestra el caso de que en una distribución con un coeficiente de asimetría negativa, la media es siempre menor que la mediana.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch2_15.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 15:</strong>  distribución de las medidas de tendencia central en curvas unimodales.
+  </figcaption>
+</figure>
+<p><strong>Ejemplo</strong> : Para los datos de ventas de aparatos eléctricos: <span class="math inline">\(5 – 8 – 8 – 11 – 11
+11 – 14 – 16\)</span>. La media aritmética, la mediana, el primer y tercer cuartil, además de la desviación estándar están dadas por: 10.5; 11.0; 8.0; 12.5 y 3.3 unidades, respectivamente.</p>
+<p>Considerando que estos datos mensuales de ventas son la <strong>población</strong> estadística de interés, se tiene que:</p>
+<p><span class="math display">\[
+I_Y = \frac{Q_3 + Q_1 - 2Q_2}{2Q_2} = -0{,}07
+\]</span></p>
+<p><span class="math display">\[
+I_S = \frac{Q_3 + Q_1 - 2Q_2}{Q_3 - Q_1} = -0{,}33
+\]</span></p>
+<p><span class="math display">\[
+A_S = \frac{3(10{,}5 - 11{,}0)}{3{,}3} = -0{,}45
+\]</span></p>
+<p><span class="math display">\[
+m_3 = 1{,}5
+\]</span></p>
+<p>Luego, si consideramos <span class="math inline">\(I_Y\)</span>, <span class="math inline">\(I_S\)</span> y <span class="math inline">\(A_S\)</span> , la distribución tiene una ligera asimetría</p>
+<p>negativa es decir, “esta sesgada hacia la izquierda”, sin embargo si usamos <span class="math inline">\(m_3\)</span></p>
+<p>muestra el caso contrario. Esto se debe que tanto <span class="math inline">\(I_Y\)</span>, <span class="math inline">\(I_S\)</span> y <span class="math inline">\(A_S\)</span> , a perdido información al</p>
+<p>resumir los datos, por esta razón el <span class="math inline">\(m_3\)</span> un coeficiente más confiable en establecer el</p>
+<p>tipo de asimetría de los datos.</p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados de la Tabla 4.5 (tiempos de espera), la media aritmética es 48,4 segundos, se obtienen los siguientes resultados:</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 22%">
+<col style="width: 27%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(f_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i - \bar{x}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((m_i - \bar{x})^3\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(f_i (m_i - \bar{x})^3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0,009</td>
+<td style="text-align: right;">14,7</td>
+<td style="text-align: right;">-33,7</td>
+<td style="text-align: right;">-38272,75</td>
+<td style="text-align: right;">-344,45</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,034</td>
+<td style="text-align: right;">23,3</td>
+<td style="text-align: right;">-25,1</td>
+<td style="text-align: right;">-15813,25</td>
+<td style="text-align: right;">-537,65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,094</td>
+<td style="text-align: right;">31,9</td>
+<td style="text-align: right;">-16,5</td>
+<td style="text-align: right;">-4492,13</td>
+<td style="text-align: right;">-422,26</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,188</td>
+<td style="text-align: right;">40,5</td>
+<td style="text-align: right;">-7,9</td>
+<td style="text-align: right;">-493,04</td>
+<td style="text-align: right;">-92,69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,333</td>
+<td style="text-align: right;">49,1</td>
+<td style="text-align: right;">0,7</td>
+<td style="text-align: right;">0,34</td>
+<td style="text-align: right;">0,11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,256</td>
+<td style="text-align: right;">57,7</td>
+<td style="text-align: right;">9,3</td>
+<td style="text-align: right;">804,36</td>
+<td style="text-align: right;">205,92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,086</td>
+<td style="text-align: right;">66,3</td>
+<td style="text-align: right;">17,9</td>
+<td style="text-align: right;">5735,34</td>
+<td style="text-align: right;">493,24</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>-697,79</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Utilizando las medidas calculadas anteriormente como:</p>
+<ol type="1">
+<li><span class="math inline">\(\bar{x} = 48{,}4 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(M_e = 49{,}3 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(S^2 = 118{,}3 \; (\text{segundos})^2\)</span> <span class="math inline">\(\Rightarrow S = 10{,}9 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(Q_1 = 41{,}4 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(Q_3 = 56{,}5 \text{ segundos}\)</span></li>
+</ol>
+<p>Por lo tanto se tiene:</p>
+<p><span class="math inline">\(I_Y = -0{,}01\)</span>, <span class="math inline">\(I_S = -0{,}05\)</span>, <span class="math inline">\(A_S = -0{,}25\)</span>, <span class="math inline">\(m_3 = -697{,}79\)</span>, <span class="math inline">\(\alpha_3 = -0{,}54\)</span></p>
+<p><strong>Coeficiente</strong> <span class="math inline">\(K_2\)</span> : Este indicador de curtosis, que se basan en cuantiles extremos, como lo son: decil 1 y decil 9. Las expresiones de cálculo están dadas por:</p>
+<p><span class="math display">\[
+K_2 = \frac{D_9 - D_1}{1{,}9\, (Q_3 - Q_1)} - 1
+\]</span></p>
+<p>Estos indicador de fácil cálculo, tanto para datos dispersos como agrupados, tienen la ventaja de no ser afectados por observaciones aberrantes, que en la mayor parte de los casos se siempre se encuentran sobre el <span class="math inline">\(D_ 9\)</span> o bajo el <span class="math inline">\(D_ 1\)</span>. <span class="math inline">\(K_2\)</span> , se encuentra</p>
+<p>divido por el factor 1,9 veces el rango intercuartílico que es la distancia que existe teóricamente entre los deciles 9 y 1, en la curva ideal estandarizada.</p>
+<p><strong>Coeficiente de Curtosis de Fisher</strong> : Es el indicador de curtosis más, que se base en el cuarto momento de la distribución de los datos, que se encuentra dado para datos dispersos y agrupados por:</p>
+<p><span class="math display">\[
+m_4 = \sum_{i=1}^{n} \frac{(x_i - \bar{x})^4}{n}
+\]</span></p>
+<p><span class="math display">\[
+m_4 = \sum_{i=1}^{k} f_i (m_i - \bar{x})^4
+\]</span></p>
+<p>Al igual que en el caso de <em>m</em> 3 , esta medida se ven fuertemente influenciadas por las unidades de medida de los datos en estudio, por lo tanto, esta medida de desempeño para medir la <em>curtosis</em> se estandariza, cuya expresión queda de la siguiente manera: <span class="math display">\[
+\alpha_4 = \frac{m_4}{S_x^{\,4}} - 3
+\]</span></p>
+<p>En su cálculo poblacional, basta con el reemplazo de los indicadores muestrales: <span class="math inline">\(\overline{x}\)</span> y <span class="math inline">\(s\)</span> , por sus respectivos cálculos poblaciones <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma\)</span>.</p>
+<p>El punto de comparación <em>teórico</em> de estos indicadores es el cero, pues en distribuciones absolutamente mesocurticas todos los indicadores resultan ser cero, mientras que si el indicador en negativo o positivo, se dice que la curtosis es platicurtica o leptocurtica, respectivamente.</p>
+<p>Sin embargo, en análisis de datos continuos en la práctica, <em>nunca</em> se obtienen coeficientes ‘cero’, por lo cual es bueno recomendar un intervalo en torno al cual se acepta la distribución de los datos como mesocurtica.</p>
+<p><strong>Ejemplo</strong> : Para los datos de ventas de aparatos eléctricos que fueron: <span class="math inline">\(5 – 8
+8 – 11 – 11 – 11 – 14 – 16\)</span>. Donde el primer y noveno decil, junto con el primer y tercer cuartil están dados por: 5; 16; 8 y 12.5 unidades, respectivamente.</p>
+<p>Considerando que estos datos mensuales de ventas son la <strong>población</strong> estadística de interés, se determina los coeficientes de curtosis:</p>
+<p><span class="math display">\[
+K_2 = \frac{16 - 5}{1{,}9 \times (12{,}5 - 8)} - 1 = 0{,}29
+\]</span></p>
+<p><span class="math display">\[
+m_4 = 257{,}31
+\qquad \Rightarrow \qquad
+\alpha_4 = -0{,}83
+\]</span></p>
+<p>Luego, si consideramos <span class="math inline">\(K_2\)</span> , la distribución tiene un agudamiento que se podría considerar mesocúrtico, sin embargo si usamos <span class="math inline">\(m_4\)</span> muestra una clara tendencia platicúrtica. Esto se debe que <span class="math inline">\(K_2\)</span> , a perdido información al resumir los datos, por esta razón el <span class="math inline">\(m_4\)</span> un coeficiente más confiable en establecer el tipo de curtosis de los datos.</p>
+<p><strong>Ejemplo</strong> : Para los datos agrupados de la Tabla 4.5, para los tiempos de espera, donde la media aritmética es 48,4 segundos, la desviación estándar está dada por:</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 22%">
+<col style="width: 27%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(f_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(m_i - \bar{x}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((m_i - \bar{x})^4\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(f_i (m_i - \bar{x})^4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0,009</td>
+<td style="text-align: right;">14,7</td>
+<td style="text-align: right;">-33,7</td>
+<td style="text-align: right;">1289791,78</td>
+<td style="text-align: right;">11608,13</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,034</td>
+<td style="text-align: right;">23,3</td>
+<td style="text-align: right;">-25,1</td>
+<td style="text-align: right;">396912,60</td>
+<td style="text-align: right;">13495,03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,094</td>
+<td style="text-align: right;">31,9</td>
+<td style="text-align: right;">-16,5</td>
+<td style="text-align: right;">74120,06</td>
+<td style="text-align: right;">6967,29</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,188</td>
+<td style="text-align: right;">40,5</td>
+<td style="text-align: right;">-7,9</td>
+<td style="text-align: right;">3895,01</td>
+<td style="text-align: right;">732,26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,333</td>
+<td style="text-align: right;">49,1</td>
+<td style="text-align: right;">0,7</td>
+<td style="text-align: right;">0,24</td>
+<td style="text-align: right;">0,08</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0,256</td>
+<td style="text-align: right;">57,7</td>
+<td style="text-align: right;">9,3</td>
+<td style="text-align: right;">7480,52</td>
+<td style="text-align: right;">1915,01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0,086</td>
+<td style="text-align: right;">66,3</td>
+<td style="text-align: right;">17,9</td>
+<td style="text-align: right;">102662,57</td>
+<td style="text-align: right;">8828,98</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>43546,78</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Utilizando las medidas calculadas anteriormente como:</p>
+<ol type="1">
+<li><span class="math inline">\(Q_1 = 41{,}4 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(Q_3 = 56{,}5 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(D_1 = 32{,}8 \text{ segundos}\)</span></li>
+<li><span class="math inline">\(D_9 = 70{,}1 \text{ segundos}\)</span></li>
+</ol>
+<p>Por lo tanto se tiene:</p>
+<p><span class="math display">\[
+K_2 = 0{,}30
+\]</span></p>
+<p><span class="math display">\[
+m_4 = 43546{,}78
+\]</span></p>
+<p><span class="math display">\[
+\alpha_4 = 0{,}08
+\]</span></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../material/modulo_01/intro.html" class="pagination-link" aria-label="Introducción">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Introducción</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../material/modulo_01/multivariado.html" class="pagination-link" aria-label="Organización de Datos Multivariados">
+        <span class="nav-page-text"><span class="chapter-title">Organización de Datos Multivariados</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

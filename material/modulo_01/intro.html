@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MAT031: Probabilidad y Estadística - Introducción</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../material/modulo_01/univariado.html" rel="next">
+<link href="../../index.html" rel="prev">
+<link href="../../images/icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../material/modulo_01/intro.html"><span class="chapter-title">Introducción</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">MAT031: Probabilidad y Estadística</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Seth-Nut/ws-usm_uchile-2025" title="Ejecutar el código" class="quarto-navigation-tool px-1" aria-label="Ejecutar el código"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_01/intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Estadística descriptiva</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_01/univariado.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Organización de Datos Univariados</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_01/multivariado.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Organización de Datos Multivariados</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Teoría de Probabilidad</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_02/probabilidad.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Elementos de Probabilidad</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Inferencia estadística</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_03/intervalos.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Inferencia Estadística</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../material/modulo_03/tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prueba de Hipótesis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#proceso-de-medición" id="toc-proceso-de-medición" class="nav-link active" data-scroll-target="#proceso-de-medición">Proceso de medición</a>
+  <ul class="collapse">
+  <li><a href="#medir-es-construir-una-representación-del-mundo" id="toc-medir-es-construir-una-representación-del-mundo" class="nav-link" data-scroll-target="#medir-es-construir-una-representación-del-mundo">Medir es construir una representación del mundo</a></li>
+  <li><a href="#instrumentos-de-medición-el-caso-de-las-encuestas" id="toc-instrumentos-de-medición-el-caso-de-las-encuestas" class="nav-link" data-scroll-target="#instrumentos-de-medición-el-caso-de-las-encuestas">Instrumentos de medición: el caso de las encuestas</a></li>
+  <li><a href="#características-fundamentales-de-una-medición" id="toc-características-fundamentales-de-una-medición" class="nav-link" data-scroll-target="#características-fundamentales-de-una-medición">Características fundamentales de una medición</a></li>
+  <li><a href="#escalas-de-medición" id="toc-escalas-de-medición" class="nav-link" data-scroll-target="#escalas-de-medición">Escalas de medición</a></li>
+  <li><a href="#error-de-medición" id="toc-error-de-medición" class="nav-link" data-scroll-target="#error-de-medición">Error de medición</a></li>
+  </ul></li>
+  <li><a href="#estadística-y-ciencia" id="toc-estadística-y-ciencia" class="nav-link" data-scroll-target="#estadística-y-ciencia">Estadística y ciencia</a>
+  <ul class="collapse">
+  <li><a href="#el-rol-de-la-estadística-en-la-producción-de-conocimiento-científico" id="toc-el-rol-de-la-estadística-en-la-producción-de-conocimiento-científico" class="nav-link" data-scroll-target="#el-rol-de-la-estadística-en-la-producción-de-conocimiento-científico">El rol de la estadística en la producción de conocimiento científico</a></li>
+  <li><a href="#enfoques-clásicos-y-modernos-de-investigación-científica" id="toc-enfoques-clásicos-y-modernos-de-investigación-científica" class="nav-link" data-scroll-target="#enfoques-clásicos-y-modernos-de-investigación-científica">Enfoques clásicos y modernos de investigación científica</a></li>
+  <li><a href="#la-estadística-como-pilar-del-método-científico" id="toc-la-estadística-como-pilar-del-método-científico" class="nav-link" data-scroll-target="#la-estadística-como-pilar-del-método-científico">La estadística como pilar del método científico</a></li>
+  <li><a href="#estadística-descriptiva-e-inferencial" id="toc-estadística-descriptiva-e-inferencial" class="nav-link" data-scroll-target="#estadística-descriptiva-e-inferencial">Estadística descriptiva e inferencial</a></li>
+  </ul></li>
+  <li><a href="#introducción-al-muestreo" id="toc-introducción-al-muestreo" class="nav-link" data-scroll-target="#introducción-al-muestreo">Introducción al muestreo</a>
+  <ul class="collapse">
+  <li><a href="#por-qué-inferimos-a-partir-de-una-parte-y-no-del-todo" id="toc-por-qué-inferimos-a-partir-de-una-parte-y-no-del-todo" class="nav-link" data-scroll-target="#por-qué-inferimos-a-partir-de-una-parte-y-no-del-todo">Por qué inferimos a partir de una parte y no del todo</a></li>
+  <li><a href="#representatividad-y-diseño-muestral" id="toc-representatividad-y-diseño-muestral" class="nav-link" data-scroll-target="#representatividad-y-diseño-muestral">Representatividad y diseño muestral</a></li>
+  <li><a href="#aleatorización-el-principio-clave-del-muestreo-científico" id="toc-aleatorización-el-principio-clave-del-muestreo-científico" class="nav-link" data-scroll-target="#aleatorización-el-principio-clave-del-muestreo-científico">Aleatorización: el principio clave del muestreo científico</a></li>
+  <li><a href="#tipos-de-muestreo-probabilístico" id="toc-tipos-de-muestreo-probabilístico" class="nav-link" data-scroll-target="#tipos-de-muestreo-probabilístico">Tipos de muestreo probabilístico</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Introducción</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="proceso-de-medición" class="level2">
+<h2 class="anchored" data-anchor-id="proceso-de-medición">Proceso de medición</h2>
+<section id="medir-es-construir-una-representación-del-mundo" class="level3">
+<h3 class="anchored" data-anchor-id="medir-es-construir-una-representación-del-mundo">Medir es construir una representación del mundo</h3>
+<p>En la vida cotidiana y en las organizaciones estamos rodeados de <strong>indicadores</strong>: porcentajes, índices, promedios, rankings. Estos números influyen en diagnósticos, evaluaciones y decisiones. Sin embargo, rara vez se cuestiona <strong>cómo se obtienen</strong> ni <strong>qué tan fielmente representan la realidad</strong>.</p>
+<p>La estadística comienza antes del cálculo: comienza con la <strong>medición</strong>.</p>
+<p>Medir no es simplemente observar un número. Es un <strong>proceso</strong> mediante el cual se asignan símbolos —generalmente números— a fenómenos del mundo real, siguiendo <strong>reglas explícitas</strong> definidas por un modelo matemático. Esta asignación conecta dos dominios distintos:</p>
+<ul>
+<li>el <strong>mundo empírico</strong>, donde ocurren los hechos, y</li>
+<li>el <strong>mundo abstracto</strong>, donde los representamos mediante números.</li>
+</ul>
+<p>Por esta razón, toda investigación debe preocuparse cuidadosamente del <strong>diseño de la medición</strong>, ya que los datos no son un reflejo perfecto de la realidad, sino una <strong>representación construida</strong>.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_01.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 1:</strong> Fenómeno real → Instrumento → Regla de medición → Número.
+  </figcaption>
+</figure>
+</section>
+<section id="instrumentos-de-medición-el-caso-de-las-encuestas" class="level3">
+<h3 class="anchored" data-anchor-id="instrumentos-de-medición-el-caso-de-las-encuestas">Instrumentos de medición: el caso de las encuestas</h3>
+<p>Un ejemplo habitual de medición es la encuesta. El cuestionario actúa como <strong>instrumento de medición</strong>, y sus respuestas generan indicadores numéricos. Sin embargo, que un número exista no garantiza que represente correctamente lo que se desea estudiar.</p>
+<p>Por ello, el diseño del instrumento es crítico. En el caso de encuestas, las preguntas deben:</p>
+<ul>
+<li>ser claras y comprensibles,</li>
+<li>evitar ambigüedades,</li>
+<li>medir un solo aspecto a la vez,</li>
+<li>no inducir respuestas,</li>
+<li>y respetar el tiempo del encuestado.</li>
+</ul>
+<p>Además, al aplicar el instrumento surgen decisiones fundamentales: ¿a cuántas personas medir?, ¿cómo seleccionarlas?, ¿qué hacer ante la no respuesta?, ¿son válidas las respuestas obtenidas?</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_02.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 2:</strong> pregunta mal formulada vs pregunta bien formulada.
+  </figcaption>
+</figure>
+</section>
+<section id="características-fundamentales-de-una-medición" class="level3">
+<h3 class="anchored" data-anchor-id="características-fundamentales-de-una-medición">Características fundamentales de una medición</h3>
+<p><strong>Qué información contienen realmente los números</strong></p>
+<p>No todos los números entregan el mismo tipo de información. En estadística, las mediciones pueden poseer hasta <strong>cuatro propiedades fundamentales</strong>, que se incorporan de manera progresiva:</p>
+<ol type="1">
+<li><strong>Unicidad</strong>: los números identifican categorías distintas.</li>
+<li><strong>Orden</strong>: permiten comparar “más” o “menos”.</li>
+<li><strong>Distancia</strong>: las diferencias entre valores son significativas y comparables.</li>
+<li><strong>Proporción</strong>: existe un cero absoluto que permite hablar de razones (doble, mitad).</li>
+</ol>
+<p>A medida que se incorporan estas propiedades, aumenta la <strong>riqueza informativa</strong> del dato y también las posibilidades de análisis estadístico.</p>
+</section>
+<section id="escalas-de-medición" class="level3">
+<h3 class="anchored" data-anchor-id="escalas-de-medición">Escalas de medición</h3>
+<p><strong>Nominal, ordinal, intervalar y de razón</strong></p>
+<p>Las escalas de medición se definen según las propiedades que cumplen:</p>
+<ul>
+<li><strong>Escala nominal</strong>: clasifica sin ordenar (etiquetas). Ej.: sexo, región, marca.</li>
+<li><strong>Escala ordinal</strong>: ordena sin cuantificar diferencias. Ej.: bajo–medio–alto.</li>
+<li><strong>Escala intervalar</strong>: permite comparar diferencias, pero no proporciones. Ej.: temperatura en °C.</li>
+<li><strong>Escala de razón</strong>: incorpora un cero absoluto y permite comparaciones proporcionales. Ej.: peso, estatura, ventas.</li>
+</ul>
+<p>Reconocer la escala de medición es fundamental, ya que <strong>determina qué operaciones estadísticas tienen sentido</strong> y cuáles no.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_03.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 3:</strong>  Cuadro comparativo con ejemplos por tipo de escala.
+  </figcaption>
+</figure>
+</section>
+<section id="error-de-medición" class="level3">
+<h3 class="anchored" data-anchor-id="error-de-medición">Error de medición</h3>
+<p><strong>Medir siempre implica incertidumbre</strong></p>
+<p>Toda medición puede representarse como el resultado de la observación de un fenómeno, denotada por <span class="math inline">\(O_i\)</span>. Esta observación se compone de tres elementos fundamentales:</p>
+<ul>
+<li><span class="math inline">\(R_i\)</span>: el valor real o verdadero de la medición,</li>
+<li><span class="math inline">\(S_i\)</span>: el error sistemático asociado al proceso de medición,</li>
+<li><span class="math inline">\(A_i\)</span>: el error aleatorio inherente a la observación.</li>
+</ul>
+<p>En una primera aproximación, la relación entre estos componentes puede expresarse mediante el modelo aditivo: <span class="math display">\[
+O_i = R_i + S_i + A_i.
+\]</span></p>
+<p>Finalmente, se distinguen dos conceptos clave:</p>
+<ul>
+<li><strong>Fiabilidad</strong>: consistencia de la medición (bajo error aleatorio).</li>
+<li><strong>Validez</strong>: grado en que realmente se mide lo que se pretende medir.</li>
+</ul>
+<p>Una medición puede ser fiable pero no válida; sin fiabilidad, no puede haber validez.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_04.jpg" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 4:</strong>  Diana de tiro mostrando combinaciones de precisión y validez.
+  </figcaption>
+</figure>
+</section>
+</section>
+<section id="estadística-y-ciencia" class="level2">
+<h2 class="anchored" data-anchor-id="estadística-y-ciencia">Estadística y ciencia</h2>
+<section id="el-rol-de-la-estadística-en-la-producción-de-conocimiento-científico" class="level3">
+<h3 class="anchored" data-anchor-id="el-rol-de-la-estadística-en-la-producción-de-conocimiento-científico">El rol de la estadística en la producción de conocimiento científico</h3>
+<p>La expresión <em>método científico</em> no alude a un procedimiento único ni rígido. En la práctica, los científicos utilizan diversos enfoques y herramientas, pero todos comparten un objetivo central: <strong>producir conocimiento científico fundamentado</strong>.</p>
+<p>Este proceso comienza con <strong>preguntas bien formuladas</strong>, susceptibles de ser respondidas mediante evidencia empírica y razonamiento riguroso. La investigación científica busca precisamente obtener respuestas confiables a estas interrogantes a través de procedimientos sistemáticos.</p>
+<p>Pese a la diversidad de métodos existentes, es posible identificar elementos comunes en toda investigación científica:</p>
+<ol type="1">
+<li>revisión crítica de hechos y teorías previas,</li>
+<li>formulación de hipótesis contrastables,</li>
+<li>evaluación objetiva de resultados y conclusiones.</li>
+</ol>
+</section>
+<section id="enfoques-clásicos-y-modernos-de-investigación-científica" class="level3">
+<h3 class="anchored" data-anchor-id="enfoques-clásicos-y-modernos-de-investigación-científica">Enfoques clásicos y modernos de investigación científica</h3>
+<p>Tradicionalmente, la investigación científica ha adoptado una postura <strong>descriptiva y analítica</strong>, en la cual el investigador se considera externo al fenómeno estudiado. Desde esta perspectiva clásica —de raíz cartesiana—, el problema se aborda fragmentando sus componentes y analizando sus relaciones, bajo una estructura conceptual que puede resumirse como:</p>
+<blockquote class="blockquote">
+<p><strong>observador – problema – entorno</strong></p>
+</blockquote>
+<p>Este enfoque ha sido exitoso en muchos ámbitos, pero presenta limitaciones cuando los fenómenos son complejos, dinámicos o altamente interdependientes.</p>
+<p>En respuesta a estas limitaciones, han surgido enfoques más recientes inspirados en la <strong>Teoría General de Sistemas</strong> y la <strong>cibernética</strong>, que proponen una visión <strong>global e integrada</strong> del fenómeno. En estos enfoques, el observador forma parte del sistema que estudia, y el conocimiento se construye a partir de una interacción operacional, experimental y perceptual con el fenómeno. La validez del conocimiento depende entonces de la <strong>coherencia del proceso de observación</strong> dentro de un dominio claramente definido.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_05.png" width="500px" class="figure-img">
+  <figcaption>
+    <strong>Figura 5:</strong>  Enfoque clásico vs Enfoque sistémico
+  </figcaption>
+</figure>
+</section>
+<section id="la-estadística-como-pilar-del-método-científico" class="level3">
+<h3 class="anchored" data-anchor-id="la-estadística-como-pilar-del-método-científico">La estadística como pilar del método científico</h3>
+<p>La estadística proporciona una forma de pensamiento <strong>clara, disciplinada y rigurosa</strong> para recolectar, organizar e interpretar información en contextos donde la <strong>variabilidad y la incertidumbre</strong> son inevitables. En este sentido, no es solo una técnica auxiliar, sino un <strong>componente estructural del quehacer científico</strong>.</p>
+<p>La estadística se ocupa de:</p>
+<ul>
+<li>recolectar y clasificar datos,</li>
+<li>resumir información relevante,</li>
+<li>identificar patrones y regularidades,</li>
+<li>realizar inferencias bajo incertidumbre, con el objetivo último de <strong>apoyar la toma de decisiones y la formulación de predicciones</strong>.</li>
+</ul>
+</section>
+<section id="estadística-descriptiva-e-inferencial" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-descriptiva-e-inferencial">Estadística descriptiva e inferencial</h3>
+<p>Desde el punto de vista metodológico, la estadística puede dividirse en dos grandes áreas:</p>
+<ul>
+<li><p><strong>Estadística descriptiva</strong>: se centra en describir y resumir un conjunto de datos mediante tablas, gráficos y medidas numéricas, sin pretender generalizar más allá de los datos observados.</p></li>
+<li><p><strong>Estadística inferencial</strong>: busca extender las conclusiones obtenidas a partir de una muestra hacia una población más amplia, apoyándose en el cálculo de probabilidades para realizar estimaciones, contrastes de hipótesis y predicciones.</p></li>
+</ul>
+<p>Esta distinción es fundamental, ya que marca el paso desde la <strong>descripción de los datos</strong> hacia la <strong>toma de decisiones basada en evidencia</strong>.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_06.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 6:</strong>  Muestra → inferencia → población
+  </figcaption>
+</figure>
+</section>
+</section>
+<section id="introducción-al-muestreo" class="level2">
+<h2 class="anchored" data-anchor-id="introducción-al-muestreo">Introducción al muestreo</h2>
+<section id="por-qué-inferimos-a-partir-de-una-parte-y-no-del-todo" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-inferimos-a-partir-de-una-parte-y-no-del-todo">Por qué inferimos a partir de una parte y no del todo</h3>
+<p>En la mayoría de los problemas reales, la <strong>población de interés</strong> —personas, objetos, eventos— es demasiado grande como para ser observada en su totalidad. Medir todos sus elementos suele ser <strong>costoso, lento o directamente impracticable</strong>.</p>
+<p>El muestreo surge como una solución fundamental: consiste en seleccionar un <strong>subconjunto de elementos</strong>, llamado <strong>muestra</strong>, con el objetivo de obtener información confiable sobre la población completa de manera más eficiente.</p>
+<p>La utilidad del muestreo no radica únicamente en el ahorro de recursos, sino en su capacidad para producir <strong>estimaciones válidas</strong>, siempre que la muestra sea <strong>representativa</strong> de la población.</p>
+</section>
+<section id="representatividad-y-diseño-muestral" class="level3">
+<h3 class="anchored" data-anchor-id="representatividad-y-diseño-muestral">Representatividad y diseño muestral</h3>
+<p>Una muestra es representativa cuando refleja adecuadamente las características relevantes de la población. Cuanto mayor es esta representatividad, <strong>mayor es la confiabilidad de las conclusiones</strong> que se extraen.</p>
+<p>Las técnicas de muestreo forman un pilar central de la estadística, ya que el <strong>alcance de las conclusiones</strong> depende directamente de cómo se seleccionaron los datos. No toda muestra permite generalizar resultados.</p>
+<p>Desde el punto de vista metodológico, las observaciones pueden obtenerse:</p>
+<ul>
+<li>a lo largo del tiempo, o</li>
+<li>mediante un <strong>diseño de muestreo</strong>.</li>
+</ul>
+<p>El diseño muestral establece los principios que permiten seleccionar muestras representativas <strong>al menor costo posible y con la mayor precisión alcanzable</strong>.</p>
+</section>
+<section id="aleatorización-el-principio-clave-del-muestreo-científico" class="level3">
+<h3 class="anchored" data-anchor-id="aleatorización-el-principio-clave-del-muestreo-científico">Aleatorización: el principio clave del muestreo científico</h3>
+<p>El concepto central del muestreo estadístico es la <strong>aleatorización</strong>. Seleccionar elementos al azar significa que la inclusión en la muestra no depende de decisiones subjetivas del investigador.</p>
+<p>La presencia o ausencia de aleatorización permite clasificar los métodos de muestreo en dos grandes categorías:</p>
+<ul>
+<li><p><strong>Muestreo no probabilístico</strong>: los resultados describen únicamente a los individuos observados y <strong>no permiten inferencias válidas sobre la población</strong>.</p></li>
+<li><p><strong>Muestreo probabilístico</strong>: cada elemento de la población tiene una <strong>probabilidad conocida de ser seleccionado</strong>, lo que habilita la inferencia estadística.</p></li>
+</ul>
+<p>Una aleatorización deficiente introduce <strong>sesgo</strong>, incluso si el tamaño muestral es grande.</p>
+</section>
+<section id="tipos-de-muestreo-probabilístico" class="level3">
+<h3 class="anchored" data-anchor-id="tipos-de-muestreo-probabilístico">Tipos de muestreo probabilístico</h3>
+<p>En el muestreo probabilístico existen diversas técnicas, cuya elección depende del conocimiento previo de la población, del nivel de precisión requerido y de los costos asociados.</p>
+<section id="muestreo-aleatorio-simple-mas" class="level4">
+<h4 class="anchored" data-anchor-id="muestreo-aleatorio-simple-mas">Muestreo aleatorio simple (MAS)</h4>
+<p>Cada elemento de la población tiene la <strong>misma probabilidad</strong> de ser seleccionado. Es adecuado cuando la población es relativamente homogénea respecto a la característica de interés y se dispone de una lista completa de sus elementos.</p>
+<p>Su lógica es equivalente a una <strong>lotería</strong>, donde la selección se realiza mediante números aleatorios.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_07.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 7:</strong> Puntos distribuidos homogéneamente, algunos seleccionados al azar.
+  </figcaption>
+</figure>
+</section>
+<section id="muestreo-aleatorio-sistemático" class="level4">
+<h4 class="anchored" data-anchor-id="muestreo-aleatorio-sistemático">Muestreo aleatorio sistemático</h4>
+<p>Los elementos se seleccionan a intervalos regulares a partir de un arranque aleatorio. Su implementación es simple y eficiente, pero puede introducir sesgos si existe una <strong>estructura periódica</strong> en el listado de la población.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_08.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 8:</strong> Lista numerada con selección cada *k*-ésimo elemento.
+  </figcaption>
+</figure>
+</section>
+<section id="muestreo-aleatorio-estratificado" class="level4">
+<h4 class="anchored" data-anchor-id="muestreo-aleatorio-estratificado">Muestreo aleatorio estratificado</h4>
+<p>La población se divide en <strong>estratos homogéneos internamente</strong>, pero distintos entre sí. Luego se selecciona una muestra aleatoria dentro de cada estrato.</p>
+<p>Este método:</p>
+<ul>
+<li>reduce la variabilidad de los estimadores,</li>
+<li>mejora la precisión,</li>
+<li>y permite estudiar subpoblaciones específicas.</li>
+</ul>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_09.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 9:</strong> Población coloreada por grupos → muestras dentro de cada grupo.
+  </figcaption>
+</figure>
+</section>
+<section id="muestreo-aleatorio-por-conglomerados" class="level4">
+<h4 class="anchored" data-anchor-id="muestreo-aleatorio-por-conglomerados">Muestreo aleatorio por conglomerados</h4>
+<p>La unidad muestral es un <strong>grupo de elementos</strong> (conglomerado), no los elementos individuales. Se seleccionan conglomerados completos y, eventualmente, elementos dentro de ellos.</p>
+<p>Es útil cuando la población está organizada en grupos naturales y el acceso a los elementos individuales es costoso.</p>
+<figure style="text-align: center;" class="figure">
+  <img src="images/ch1_10.png" width="600px" class="figure-img">
+  <figcaption>
+    <strong>Figura 10:</strong> Grupos compactos de puntos, algunos seleccionados completos.
+  </figcaption>
+</figure>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Home</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../material/modulo_01/univariado.html" class="pagination-link" aria-label="Organización de Datos Univariados">
+        <span class="nav-page-text"><span class="chapter-title">Organización de Datos Univariados</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
