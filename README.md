@@ -1,8 +1,7 @@
 # MAT-031 — Estadística
 
 ![example workflow](https://github.com/fralfaro/MAT031/actions/workflows/documentation.yml/badge.svg)
-[![documentation](https://img.shields.io/badge/📖-docs-brightgreen)](https://seth-nut.github.io/MAT031/)
-[![link](https://img.shields.io/badge/🌐-link-brightgreen)](https://sites.google.com/view/veranomatematico2025usm-uchile/informaci%C3%B3n-general?authuser=0)
+[![documentation](https://img.shields.io/badge/📖-docs-brightgreen)](https://fralfaro.github.io/MAT031/)
 
 
 
